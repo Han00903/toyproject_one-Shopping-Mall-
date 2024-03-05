@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang=" utf-8"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<head>
+    <meta charset="UTF-8">
+    <title>메인 페이지</title>
+</head>
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/main.css">
+<body>
+<div class="navbar" >
+    <ul id="logo_text">
+    <li><a th:href = "@{/toyproject_one/main}" >Shopping Mall</a></li>
+    </ul>
+<!--    <a href="#" id="logo">-->
+<!--        <img src="images/logo.png" width="149">-->
+<!--    </a>-->
+    <ul id="menu">
+        <li><a th:href = "@{/toyproject_one/login}">로그인</a></li>
+        <li><a th:href = "@{/toyproject_one/signup}">회원가입</a></li>
+    </ul>
+    <br><br><br>
+    <nav class="navbar navbar-inverse">
+        <div id="menu2">
+            <ul class="main1">
+                <li style="border: none;"><a href="#"><b style="font-size: 20px;"><span style="font-size: 20px;">≡</span> Product</b></a>
+                    <ul class="main2">
+                        <li><a href="#">Product!!!</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+            <!--<div class="products">-->
+<!--    <h3>our new products</h3>-->
+<!--    <div class="product-list">-->
+<!--        <a href="#" class="product">-->
+<!--            <img src="images/sunglasses.jpg" width="225">-->
+<!--            <div class="product-name">-->
+<!--                sunglasses-->
+<!--            </div>-->
+<!--            <div class="product-price">49,000</div>-->
+<!--        </a>-->
+
+<!--        <a href="#" class="product">-->
+<!--            <img src="images/tassel_loafer.jpg" width="225">-->
+<!--            <div class="product-name">-->
+<!--                tassel_loafer-->
+<!--            </div>-->
+<!--            <div class="product-price">89,000</div>-->
+<!--        </a>-->
+
+<!--        <a href="#" class="product">-->
+<!--            <img src="images/beige_bag.jpg" width="225">-->
+<!--            <div class="product-name">-->
+<!--                beige_bag-->
+<!--            </div>-->
+<!--            <div class="product-price">69,000</div>-->
+<!--        </a>-->
+
+<!--        <a href="#" class="product">-->
+<!--            <img src="images/sneakers.jpg" width="225">-->
+<!--            <div class="product-name">-->
+<!--                sneakers.jpg-->
+<!--            </div>-->
+<!--            <div class="product-price">49,000</div>-->
+<!--        </a>-->
+
+<!--        <a href="#" class="product">-->
+<!--            <img src="images/slippers.jpg" width="225">-->
+<!--            <div class="product-name">-->
+<!--                slippers-->
+<!--            </div>-->
+<!--            <div class="product-price">49,000</div>-->
+<!--        </a>-->
+
+<!--        <a href="#" class="product">-->
+<!--            <img src="images/wrist_watch.jpg" width="225">-->
+<!--            <div class="product-name">-->
+<!--                wrist_watch-->
+<!--            </div>-->
+<!--            <div class="product-price">49,000</div>-->
+<!--        </a>-->
+
+<!--        <a href="#" class="product">-->
+<!--            <img src="images/fedora_hat.jpg" width="225">-->
+<!--            <div class="product-name">-->
+<!--                fedora_hat-->
+<!--            </div>-->
+<!--            <div class="product-price">49,000</div>-->
+<!--        </a>-->
+
+<!--        <a href="#" class="product">-->
+<!--            <img src="images/classic_loafer.jpg" width="225">-->
+<!--            <div class="product-name">-->
+<!--                classic_loafer-->
+<!--            </div>-->
+<!--            <div class="product-price">49,000</div>-->
+<!--        </a>-->
+
+<!--        <a href="#" class="product">-->
+<!--            <img src="images/pink_bag.jpg" width="225">-->
+<!--            <div class="product-name">-->
+<!--                pink_bag-->
+<!--            </div>-->
+<!--            <div class="product-price">49,000</div>-->
+<!--        </a>-->
+<!--        <div class="clearfix"></div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="footer">-->
+<!--    <a href="http://facebook.com">-->
+<!--        <img src="images/facebook.png"height="20">-->
+<!--    </a>-->
+<!--    <a href="http://instagram.com">-->
+<!--        <img src="images/instagram.png"height="20">-->
+<!--    </a>-->
+<!--    <a href="http://twitter.com">-->
+<!--        <img src="images/twitter.png"height="20">-->
+<!--    </a>-->
+<!--</div>-->
+</body>
+</html>

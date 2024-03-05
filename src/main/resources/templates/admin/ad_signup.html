@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang=" utf-8"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 회원가입 페이지</title>
+</head>
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/login.css">
+
+<body>
+<div class="navbar" >
+    <ul id="logo_text">
+        <li><a th:href = "@{/toyproject_one/ad_main}" >Shopping Mall</a></li>
+    </ul>
+    <ul id="menu">
+        <li><a th:href = "@{/toyproject_one/ad_login}">로그인</a></li>
+        <li><a th:href = "@{/toyproject_one/ad_signup}">회원가입</a></li>
+    </ul>F
+</div>
+
+<form th:action="@{/toyproject_one/ad_signup}" method="post" modelAttribute="adminDTO">
+<p class="tip"></p>
+<div class="cont">
+    <div class="form sign-in">
+        <h2>Admin Sign UP</h2>
+        <br>
+        <label>
+            <input class="font" type="text" id="admin_id" name="admin_id" placeholder="  아이디" style="width: 350px; margin: 0 auto;" oninput="validateAdminId(this)" /> <br>
+            <span id="admin_id_error" style="color: #c20c0c;"></span>
+        </label>
+
+        <script>
+            document.getElementById('user_id').addEventListener('blur', function() {
+                var userIdInput = this.value;
+                var userIdMessage = document.getElementById('user_id_message');
+
+                if (userIdInput.trim() === '') {
+                    userIdMessage.textContent = "아이디를 입력해주세요.";
+                } else if (!/^[\w]{5,15}$/.test(userIdInput)) {
+                    userIdMessage.textContent = "영문, 숫자, '_'만 입력 가능하며 5자리 이상 15자리 이하여야 합니다.";
+                } else {
+                    userIdMessage.textContent = "";
+                }
+            });
+        </script>
+
+        <label>
+            <input class="font" type="password" id="admin_pw" name="admin_pw" placeholder="  비밀번호" style="width: 350px; margin: 0 auto;" oninput="validateAdminPw(this)" /><br>
+            <span id="admin_pw_error" style="color: #c20c0c;"></span>
+        </label>
+
+        <script>
+            function validateAdminPw(input) {
+                var regex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\W)(?=\S+$).{8,20}$/;
+                var errorMessage = "";
+
+                if (!regex.test(input.value)) {
+                    errorMessage = "비밀번호는 8~20자 영문 대 소문자, 숫자, 특수문자를 모두 사용해야합니다.";
+                }
+
+                document.getElementById('admin_pw_error').innerText = errorMessage;
+            }
+        </script>
+
+        <label>
+            <input class="font" type="text" id="admin_name" name="admin_name" placeholder="  성명" style="width: 350px; margin: 0 auto;" oninput="validateAdminName(this)" /><br>
+            <span id="admin_name_error" style="color: #c20c0c;"></span>
+        </label>
+
+        <script>
+            function validateAdminName(input) {
+                var regex = /^[가-힣a-zA-Z]+$/;
+                var errorMessage = "";
+
+                if (!regex.test(input.value)) {
+                    errorMessage = "이름은 한글과 영문 대/소문자로만 입력 가능합니다.";
+                }
+
+                document.getElementById('admin_name_error').innerText = errorMessage;
+            }
+        </script>
+
+        <label>
+            <input class="font" type="text" id="admin_phone" name="admin_phone" placeholder="  핸드폰 번호" style="width: 350px; margin: 0 auto;" maxlength="13" oninput="validateAdminPhone(this)" /><br>
+            <span id="admin_phone_error" style="color: #c20c0c;"></span>
+        </label>
+
+        <script>
+            function validateAdminPhone(input) {
+                var regex = /^[0-9\-]{1,13}$/;
+                var errorMessage = "";
+
+                if (!regex.test(input.value)) {
+                    errorMessage = "휴대전화번호가 정확한지 확인해 주세요.";
+                }
+
+                document.getElementById('admin_phone_error').innerText = errorMessage;
+            }
+
+            const phoneNumber = (target) => {
+                // 먼저 숫자 이외의 문자를 제거
+                const cleanedValue = target.value.replace(/[^0-9]/g, '');
+
+                // 형식에 맞게 변환
+                if (cleanedValue.length <= 3) {
+                    target.value = cleanedValue;
+                } else if (cleanedValue.length <= 7) {
+                    target.value = `${cleanedValue.slice(0, 3)}-${cleanedValue.slice(3)}`;
+                } else {
+                    target.value = `${cleanedValue.slice(0, 3)}-${cleanedValue.slice(3, 7)}-${cleanedValue.slice(7)}`;
+                }
+            }
+        </script>
+        <button class="background" type = "submit" >관리자등록</button>
+        <script>
+            function checkAndSubmit() {
+                // 입력된 아이디 가져오기
+                var adminId = document.getElementById('admin_id').value;
+
+                // Ajax 요청을 통해 서버에 아이디 중복 확인 요청
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/checkAdminId", true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.exists) {
+                            // 아이디가 이미 존재하는 경우 경고 메시지 표시
+                            alert("이미 존재하는 아이디입니다.");
+                        } else {
+                            // 아이디가 존재하지 않는 경우 관리자 등록 요청
+                            document.getElementById("adminForm").submit(); // 아이디가 존재하지 않으면 폼 제출
+                        }
+                    }
+                };
+                xhr.send(JSON.stringify({adminId: adminId}));
+            }
+        </script>
+
+    </div>
+</div>
+</form>
+</body>
+</html>

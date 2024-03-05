@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="utf-8" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 페이지</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/modal.css">
+</head>
+
+<body>
+<div class="navbar" >
+    <ul id="logo_text">
+        <li><a th:href = "@{/toyproject_one/ad_main}" >Shopping Mall</a></li>
+    </ul>
+    <ul id="menu">
+        <li><a th:href = "@{/toyproject_one/ad_login}">로그인</a></li>
+        <li><a th:href = "@{/toyproject_one/ad_signup}">회원가입</a></li>
+    </ul>
+</div>
+
+<form th:action="@{/toyproject_one/ad_login}" method="post" id="adloginForm">
+    <p class="tip"></p>
+    <div class="cont">
+        <div class="form sign-in">
+            <h2>Admin Login</h2>
+            <br><br>
+            <label>
+                <input class ="font" type="text" id="admin_id" name="admin_id" placeholder="아이디" style="width: 350px; margin: 0 auto;" /> <!-- 입력 필드의 너비를 200px로 설정하고 가운데 정렬 -->
+            </label>
+            <br>
+            <label>
+                <input class ="font" type="password" id="admin_pw" name="admin_pw" placeholder="비밀번호" style="width: 350px; margin: 0 auto;" />
+            </label>
+            <br>
+            <br><br>
+            <button class="background" type="button" onclick="submitForm()">로그인</button>
+            <a class="background" th:href="@{/toyproject_one/ad_signup}">회원가입</a>
+
+        </div>
+    </div>
+</form>
+<!-- 모달 -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <p id="errorMessage" style="color: red;"></p>
+        <button class="close-btn" onclick="closeModal()">확인</button>
+    </div>
+</div>
+
+<script>
+    // 로그인 폼 제출
+    function submitForm() {
+        var form = document.getElementById("adloginForm");
+        var adminId = form.querySelector("#admin_id").value;
+        var adminPw = form.querySelector("#admin_pw").value;
+
+        if (adminId && adminPw) {
+            form.submit();
+        } else {
+            openModal("아이디와 비밀번호를 확인해주세요.");
+        }
+    }
+
+    // 모달 열기 (오류 메시지 표시)
+    function openModal(message) {
+        var modal = document.getElementById("myModal");
+        var errorMessage = document.getElementById("errorMessage");
+        errorMessage.innerText = message;
+        modal.style.display = "block";
+    }
+
+    // 모달 닫기
+    function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+</script>
+</body>
+</html>

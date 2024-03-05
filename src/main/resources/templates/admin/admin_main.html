@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang=" utf-8"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 페이지</title>
+</head>
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/main.css">
+<body>
+<div class="navbar" >
+    <ul id="logo_text">
+        <li><a th:href = "@{/toyproject_one/admin_main}" >Shopping Mall</a></li>
+    </ul>
+    <ul id="menu">
+        <li><a th:href = "@{/toyproject_one/ad_main}">로그아웃</a></li>
+        <li><a th:href = "@{/}">내정보</a></li>
+    </ul>
+    <br><br><br>
+    <nav class="navbar navbar-inverse">
+        <div id="menu2">
+            <ul class="main1">
+                <li style="border: none;"><a href="#"><b style="font-size: 20px;"><span style="font-size: 20px;">≡</span> Product</b></a>
+                    <ul class="main2">
+                        <li><a th:href = "@{/toyproject_one/item}">상품 등록</a></li>
+                        <li><a th:href = "@{/toyproject_one/item/list}">상품 목록</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
