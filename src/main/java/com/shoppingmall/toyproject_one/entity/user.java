@@ -56,7 +56,7 @@ public class user {
     public static user user(userDTO userDTO){
 
         user user = new user(); // DTO에 있는 값을 entity로 넘기기 때문에 (DTO, entity)로 작성
-        user.setUserID(userDTO.getUser_id());
+        user.setUserID(userDTO.getUserID());
         user.setUser_pw(userDTO.getUser_pw());
         user.setUser_name(userDTO.getUser_name());
         user.setUser_gender(userDTO.getUser_gender());

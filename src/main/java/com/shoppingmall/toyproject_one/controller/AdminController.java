@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -24,24 +21,27 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping(value = "toyproject_one/ad_main")
-    public String ad_main(){
-        return "/admin/ad_main";
-    }
+    // 충돌일어나서 ad_main은 ItemController로 감
+//    @GetMapping(value = "toyproject_one/ad_main")
+//    public String ad_main() {
+//        return "/admin/ad_main";
+//    }
 
-    @GetMapping(value = "toyproject_one/admin_main")
-    public String admin_main(){
-        return "/admin/admin_main";
-    }
+
+    // 충돌일어나서 admin_main은 ItemController로 감
+//    @GetMapping(value = "toyproject_one/admin_main")
+//    public String admin_main() {
+//        return "/admin/admin_main";
+//    }
 
     @GetMapping("/toyproject_one/ad_signup") // 회원가입 페이지 출력 요청
-    public String adminSignupForm(){
+    public String adminSignupForm() {
 
         return "/admin/ad_signup";
     }
 
     @GetMapping("toyproject_one/ad_login")
-    public String adloginForm(){
+    public String adloginForm() {
 
         return "/admin/ad_login";
     }
@@ -54,11 +54,19 @@ public class AdminController {
             for (String key : validatorResult.keySet()) {
                 model.addAttribute(key, validatorResult.get(key));
             }
-            return "/admin/ad_signup";
+
+            model.addAttribute("message", "다시 입력해주세요.");
+            model.addAttribute("searchUrl", "/toyproject_one/ad_signup");
+
+            return "message"; // 회원가입이 완료된 경우 메시지 페이지를 보여줌
+
         } else {
             // 에러가 발생하지 않은 경우
             adminService.save(adminDTO);
-            return "/admin/ad_login";
+            model.addAttribute("message", "회원가입이 완료되었습니다.");
+            model.addAttribute("searchUrl", "/toyproject_one/ad_login");
+
+            return "message"; // 회원가입이 완료된 경우 메시지 페이지를 보여줌
         }
     }
 
@@ -68,11 +76,23 @@ public class AdminController {
         if (loginResult != null) {
             // 로그인 성공
             session.setAttribute("loginID", loginResult.getAdmin_id());
-            return "/admin/admin_main";
+
+            model.addAttribute("message", "로그인이 완료되었습니다.");
+            model.addAttribute("searchUrl", "/toyproject_one/admin_main");
+
+            return "message";
         } else {
             // 로그인 실패
-            model.addAttribute("errorMessage", "아이디 또는 비밀번호가 올바르지 않습니다."); // 오류 메시지를 모델에 추가
-            return "/admin/ad_login";
+
+            model.addAttribute("message", "로그인 실패하였습니다.");
+            model.addAttribute("searchUrl", "/toyproject_one/ad_login");
+            return "message";
         }
+    }
+
+    @PostMapping("/toyproject_one/ad_signup/ad_id_check")
+    public @ResponseBody String ad_idcheck (@RequestParam("admin_id") String admin_id){
+        String ad_checkResult = adminService.ad_idCheck(admin_id);
+        return ad_checkResult;
     }
 }

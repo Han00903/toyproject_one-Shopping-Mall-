@@ -22,7 +22,11 @@ public class AdminService {
     @Autowired // 의존성 주입 (Repository 호출)
     private AdminRepository adminRepository;
 
-    public void write(admin admin) {adminRepository.save(admin);}
+    // 작성 처리
+    public void write(admin admin, String admin_id) {
+        adminRepository.save(admin);
+    }
+
     public void save(adminDTO adminDTO) {
         //1. dto -> entity 변환
         //2. repository의 save 메서드 호출
@@ -40,15 +44,12 @@ public class AdminService {
         }
         return validatorResult;
     }
-    public void signUp(adminDTO adminDTO) {
-        // 회원 가입 비즈니스 로직 구현
-    }
 
     public adminDTO ad_login(adminDTO adminDTO) {
         /*
          처리과정
          1. 회원이 입력한 아이디로 DB에서 조회함
-         2. DB에서 조회한 비밀번호가 사용자가 입력한 비밀번호와 일치하는지 판단
+         2. DB에서 조회한 비밀번호가 사용자가 입력한 비밀번호와 일 치하는지 판단
         */
         Optional<admin> findById = adminRepository.findById(adminDTO.getAdmin_id());
         if (findById.isPresent()) {
@@ -69,4 +70,13 @@ public class AdminService {
             return null;
         }
     }
+    public String ad_idCheck(String admin_id){
+        Optional<admin> byAdmin_id = adminRepository.findById(admin_id);
+        if(byAdmin_id.isPresent()){
+            return null;
+        } else {
+            return "ok";
+        }
+    }
+
 }

@@ -1,11 +1,10 @@
 package com.shoppingmall.toyproject_one.service;
 
 import com.shoppingmall.toyproject_one.DTO.userDTO;
+import com.shoppingmall.toyproject_one.entity.item;
 import com.shoppingmall.toyproject_one.entity.user;
 import com.shoppingmall.toyproject_one.repository.UserRepository;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
@@ -48,7 +47,7 @@ public class UserService {
         * 회원이 입력한 아이디를 DB에서 조회를 함
         * DB에서 조회한비밀번호가 사용자가 입력한 비밀번호가 일치하는지 판단
         * */
-        Optional<user> findById = userRepository.findById(userDTO.getUser_id());
+        Optional<user> findById = userRepository.findById(userDTO.getUserID());
         if (findById.isPresent()){
             //조회 결과가 있다(해당 아이디를 가진 회원 정보가 존재 비밀번호 일치여부는 아직 확인 x)
             user user = findById.get();
@@ -66,11 +65,16 @@ public class UserService {
             // 조회 결과가 없다(해당 아이디를 가진 회원 정보가 부존재)
             return null;
         }
-
     }
-//
-//    public boolean checkLogin(userDTO userDTO) {
-//        user user = userRepository.findByUserID(userDTO.getUser_id());
-//        return user != null && user.getUser_pw().equals(userDTO.getUser_pw());
-//    }
+
+    public String idCheck(String userID) {
+        Optional<user> byUserID = userRepository.findById(userID);
+        if (byUserID.isPresent()) {
+            // 조회결과가 있다 -> 사용할 수 없다.
+            return  null;
+        } else {
+            // 조회결과가 없다 -> 사용할 수 있다.
+            return "ok";
+        }
+    }
 }

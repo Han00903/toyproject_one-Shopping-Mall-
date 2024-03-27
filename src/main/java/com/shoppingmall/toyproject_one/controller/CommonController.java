@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CommonController {
 
     @GetMapping(value = "toyproject_one/common")
-    public String ad_main(){
+    public String ad_main() {
         return "common";
     }
 }

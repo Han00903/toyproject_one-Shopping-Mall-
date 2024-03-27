@@ -1,127 +1,81 @@
 <!DOCTYPE html>
 <html lang=" utf-8"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/product_write.css">
     <title>메인 페이지</title>
 </head>
-<link rel="stylesheet" href="/css/nav.css">
-<link rel="stylesheet" href="/css/main.css">
 <body>
-<div class="navbar" >
-    <ul id="logo_text">
-    <li><a th:href = "@{/toyproject_one/main}" >Shopping Mall</a></li>
-    </ul>
-<!--    <a href="#" id="logo">-->
-<!--        <img src="images/logo.png" width="149">-->
-<!--    </a>-->
-    <ul id="menu">
-        <li><a th:href = "@{/toyproject_one/login}">로그인</a></li>
-        <li><a th:href = "@{/toyproject_one/signup}">회원가입</a></li>
-    </ul>
-    <br><br><br>
-    <nav class="navbar navbar-inverse">
-        <div id="menu2">
-            <ul class="main1">
-                <li style="border: none;"><a href="#"><b style="font-size: 20px;"><span style="font-size: 20px;">≡</span> Product</b></a>
-                    <ul class="main2">
-                        <li><a href="#">Product!!!</a>
-                        </li>
-                    </ul>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div style="text-align: center;">
+                <br>
+                <li class="nav-item" style="padding-left: 30px; height: 60px;">
+                    <a class="nav-link" style="padding-left: 10px; padding-right: 10px;" href="#" id="adminLink">Shopping
+                        Mall</a>
                 </li>
-            </ul>
+                <img src="/img/logo.jpg" alt="Logo" style="max-height: 80px; max-width: 350px;">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/toyproject_one/login}">로그인</a>&nbsp;&nbsp;&nbsp;
+                        <a class="nav-link" th:href="@{/toyproject_one/signup}">회원가입</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
+    <br>
+    <div style="text-align: center; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; padding: 10px 0;">
+        <div>
+            <a class="menu active" th:href="@{/toyproject_one/main}"> Home</a>
+            <a class="menu " th:href="@{/toyproject_one/us_item/list}"> All</a>
+            <a class="menu " th:href="@{/toyproject_one/us_item/list/Outer}"> Outer</a>
+            <a class="menu " th:href="@{/toyproject_one/us_item/list/Top}"> Top</a>
+            <a class="menu " th:href="@{/toyproject_one/us_item/list/Bottom}"> Bottom</a>
+            <a class="menu " th:href="@{/toyproject_one/us_item/list/Dress}"> Dress</a>
+            <a class="menu " th:href="@{/toyproject_one/us_item/list/Accessories}"> Accessories</a>
+            <a class="menu " th:href="@{/toyproject_one/us_board}"> 상품후기</a>
+            <a class="menu " th:href="@{/toyproject_one/us_board}"> Q&A</a>
+            <form th:action="@{/toyproject_one/us_item/list}" method="get" style="display: inline-block;">
+                <button class="menu " type="submit">상품명 검색</button>
+                <input type="text" name="searchKeyword">
+            </form>
+        </div>
+    </div>
+</header>
+<img class="hero_header" src="/img/Banner1.jpg"><br><br><br>
+
+<h1> Our new Products</h1>
+<div style="text-align: center; ">
+    <table class="table table-striped"
+           style="width: 80%; margin: auto; border: 1px solid #dddddd; border-collapse: collapse;">
+        <div class="products">
+            <div th:each="item : ${items}" class="product">
+                <a th:href="@{/toyproject_one/us_view(itemID=${item.itemID})}">
+                    <img th:src="@{${item.item_img_filepath}}" alt="Product Image">
+                    <p th:text="${item.itemID}"></p>
+                    <p th:text="${item.itemNM}"></p>
+                    <p class="price" th:text="${item.price} +' '+ 원"></p>
+                </a>
+            </div>
+        </div>
+    </table>
 </div>
-            <!--<div class="products">-->
-<!--    <h3>our new products</h3>-->
-<!--    <div class="product-list">-->
-<!--        <a href="#" class="product">-->
-<!--            <img src="images/sunglasses.jpg" width="225">-->
-<!--            <div class="product-name">-->
-<!--                sunglasses-->
-<!--            </div>-->
-<!--            <div class="product-price">49,000</div>-->
-<!--        </a>-->
-
-<!--        <a href="#" class="product">-->
-<!--            <img src="images/tassel_loafer.jpg" width="225">-->
-<!--            <div class="product-name">-->
-<!--                tassel_loafer-->
-<!--            </div>-->
-<!--            <div class="product-price">89,000</div>-->
-<!--        </a>-->
-
-<!--        <a href="#" class="product">-->
-<!--            <img src="images/beige_bag.jpg" width="225">-->
-<!--            <div class="product-name">-->
-<!--                beige_bag-->
-<!--            </div>-->
-<!--            <div class="product-price">69,000</div>-->
-<!--        </a>-->
-
-<!--        <a href="#" class="product">-->
-<!--            <img src="images/sneakers.jpg" width="225">-->
-<!--            <div class="product-name">-->
-<!--                sneakers.jpg-->
-<!--            </div>-->
-<!--            <div class="product-price">49,000</div>-->
-<!--        </a>-->
-
-<!--        <a href="#" class="product">-->
-<!--            <img src="images/slippers.jpg" width="225">-->
-<!--            <div class="product-name">-->
-<!--                slippers-->
-<!--            </div>-->
-<!--            <div class="product-price">49,000</div>-->
-<!--        </a>-->
-
-<!--        <a href="#" class="product">-->
-<!--            <img src="images/wrist_watch.jpg" width="225">-->
-<!--            <div class="product-name">-->
-<!--                wrist_watch-->
-<!--            </div>-->
-<!--            <div class="product-price">49,000</div>-->
-<!--        </a>-->
-
-<!--        <a href="#" class="product">-->
-<!--            <img src="images/fedora_hat.jpg" width="225">-->
-<!--            <div class="product-name">-->
-<!--                fedora_hat-->
-<!--            </div>-->
-<!--            <div class="product-price">49,000</div>-->
-<!--        </a>-->
-
-<!--        <a href="#" class="product">-->
-<!--            <img src="images/classic_loafer.jpg" width="225">-->
-<!--            <div class="product-name">-->
-<!--                classic_loafer-->
-<!--            </div>-->
-<!--            <div class="product-price">49,000</div>-->
-<!--        </a>-->
-
-<!--        <a href="#" class="product">-->
-<!--            <img src="images/pink_bag.jpg" width="225">-->
-<!--            <div class="product-name">-->
-<!--                pink_bag-->
-<!--            </div>-->
-<!--            <div class="product-price">49,000</div>-->
-<!--        </a>-->
-<!--        <div class="clearfix"></div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<div class="footer">-->
-<!--    <a href="http://facebook.com">-->
-<!--        <img src="images/facebook.png"height="20">-->
-<!--    </a>-->
-<!--    <a href="http://instagram.com">-->
-<!--        <img src="images/instagram.png"height="20">-->
-<!--    </a>-->
-<!--    <a href="http://twitter.com">-->
-<!--        <img src="images/twitter.png"height="20">-->
-<!--    </a>-->
-<!--</div>-->
+<hr style="border: 1px solid gray; margin-top: 30px;">
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="company-info">
+                <h3>My Online Shopping mall</h3>
+                <p>3 Eunhaeng-ro, Yeongdeungpo-gu, Seoul, Republic of Korea (Konai, 9th floor, Exconventure Tower,
+                    Yeouido-dong) | Email: han.ej@konai.com | Phone: 02-2168-7689</p>
+            </div>
+            <p>&copy; 2024 My Online Shop. All rights reserved.</p><br>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

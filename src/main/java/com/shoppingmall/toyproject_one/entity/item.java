@@ -10,13 +10,17 @@ import lombok.Data;
 public class item {
 
     @Id
-    private String item_id;
+    @Column(name = "item_id")
+    private String itemID;
+
+    @Column(name = "item_img_id")
+    private String imgID = "";
 
     @ Column(nullable = false)
-    private String item_img_id;
+    private String category;
 
-    @ Column(nullable = false)
-    private String item_nm;
+    @ Column(name = "item_nm")
+    private String itemNM;
 
     @ Column(nullable = false)
     private String price;
@@ -31,27 +35,23 @@ public class item {
     private String item_sell_status;
 
     @ Column(nullable = false)
-    private String filepath;
+    private String item_img_filepath = ""; // 또는 적절한 기본값 설정
+
+
 
 
     public static item item(itemDTO itemDTO){
 
         item item = new item();
-        item.setItem_id(itemDTO.getItem_id());
-        item.setItem_img_id(itemDTO.getItem_img_id());
-        item.setItem_nm(itemDTO.getItem_nm());
+        item.setItemID(itemDTO.getItemID());
+        item.setImgID(itemDTO.getImgID());
+        item.setCategory(itemDTO.getCategory());
+        item.setItemNM(itemDTO.getItemNM());
         item.setPrice(itemDTO.getPrice());
         item.setStock_number(itemDTO.getStock_number());
         item.setItem_detail(itemDTO.getItem_detail());
         item.setItem_sell_status(itemDTO.getItem_sell_status());
-        item.setFilepath(itemDTO.getFilepath());
+        item.setItem_img_filepath(itemDTO.getItem_img_filepath());
         return item;
     }
-
-
-
-
-
-
-
 }

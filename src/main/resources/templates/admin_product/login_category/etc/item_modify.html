@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang=" utf-8"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/product_write.css">
+    <title>상품 수정 페이지</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div style="text-align: center;">
+                <br>
+                <li class="nav-item" style="padding-left: 30px; height: 60px;">
+                    <a class="nav-link" style="padding-left: 10px; padding-right: 10px;" href="#" id="adminLink">≡ Admin
+                        Page</a>
+                    <a th:href="@{/toyproject_one/main}" id="userLink"
+                       style="background-color: #ededed; padding-left: 10px; padding-right: 10px; display: none;">User</a>
+                </li>
+
+                <script>
+                    const adminLink = document.getElementById('adminLink');
+                    const userLink = document.getElementById('userLink');
+
+                    let mouseInAdminLink = false;
+                    let mouseInUserLink = false;
+
+                    adminLink.addEventListener('mouseenter', function() {
+                        mouseInAdminLink = true;
+                        setTimeout(function() {
+                            if (mouseInAdminLink && !mouseInUserLink) {
+                                userLink.style.display = 'block';
+                            }
+                        }, 200);
+                    });
+
+                    adminLink.addEventListener('mouseleave', function() {
+                        mouseInAdminLink = false;
+                        setTimeout(function() {
+                            if (!mouseInUserLink) {
+                                userLink.style.display = 'none';
+                            }
+                        }, 200);
+                    });
+
+                    userLink.addEventListener('mouseenter', function() {
+                        mouseInUserLink = true;
+                    });
+
+                    userLink.addEventListener('mouseleave', function() {
+                        mouseInUserLink = false;
+                        setTimeout(function() {
+                            if (!mouseInAdminLink) {
+                                userLink.style.display = 'none';
+                            }
+                        }, 200);
+                    });
+
+                    userLink.addEventListener('click', function(event) {
+                        event.stopPropagation();
+                        window.location.href = this.getAttribute('href');
+                    });
+
+                    document.addEventListener('click', function() {
+                        if (!mouseInUserLink) {
+                            userLink.style.display = 'none';
+                        }
+                    });
+                </script>
+                <img src="/img/logo.jpg" alt="Logo" style="max-height: 80px; max-width: 350px;">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/toyproject_one/ad_main}">로그아웃</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div style="text-align: center; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; padding: 10px 0;">
+        <div>
+            <a class="menu active" th:href="@{/toyproject_one/admin_main}"> Home</a>
+            <a class="menu " th:href="@{/toyproject_one/item/list}"> All</a>
+            <a class="menu " th:href="@{/toyproject_one/item/list/Outer}"> Outer</a>
+            <a class="menu " th:href="@{/toyproject_one/item/list/Top}"> Top</a>
+            <a class="menu " th:href="@{/toyproject_one/item/list/Bottom}"> Bottom</a>
+            <a class="menu " th:href="@{/toyproject_one/item/list/Dress}"> Dress</a>
+            <a class="menu " th:href="@{/toyproject_one/item/list/Accessories}"> Accessories</a>
+            <a class="menu " th:href="@{/toyproject_one/item/write}"> Product Registration</a>
+            <a class="menu " th:href="@{/toyproject_one/board}"> Board</a>
+            <form th:action="@{/toyproject_one/item/list}" method="get" style="display: inline-block;">
+                <input type="text" name="searchKeyword">
+                <button type="submit">🔎 상품명 검색</button>
+            </form>
+        </div>
+    </div>
+</header>
+<br><br><br>
+
+<form th:action="@{/toyproject_one/item/update/{itemID}(itemID=${item.itemID}}" method="post" modelAttribute="itemDTO"
+      enctype="multipart/form-data">
+    <div style="text-align: center;">
+        <table style="width: 40%; border: 3px solid #dddddd; margin: 0 auto;">
+            <p class="tip"></p>
+
+            <thead>
+            <tr>
+                <th class="navbar" colspan="2" style="background-color: #eeeeee; text-align: center;">
+                    <h3 style="margin: 0;">상품 수정</h3>
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <div style="display: flex; justify-content: left;">
+
+                <tr>
+                    <td style="width: 25%; text-align: left;"> 상품코드</td>
+                    <td style="width: 75%; text-align: left;">
+                        <input class="font" type="text" id="itemID" name="itemID"
+                               style="display: block; width: 350px; margin: 0 auto;" readonly th:value="${item.itemID}">
+                        <span th:text="${valid_itemID}" style="color: #c20c0c;"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: left;">이미지 업로드</td>
+                    <td style="text-align: left;">
+                        <input class="font" type="file" id="imgID" name="file"
+                               style="display: block; width: 350px; margin: 0 auto;" th:value="${item.imgID}"
+                               required/>
+                        <span th:text="${valid_imgID}" style="color: #c20c0c;"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: left;"> 카테고리</td>
+                    <td style="text-align: left;">
+                        <select class="font" id="category" name="category" style="display: block; width: 350px; margin: 0 auto;" required>
+                            <option value=""></option>
+                            <option value="Outer">Outer</option>
+                            <option value="Top">Top</option>
+                            <option value="Bottom">Bottom</option>
+                            <option value="Dress">Dress</option>
+                            <option value="Accessories">Accessories</option>
+
+                            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                        </select>
+                        <span th:text="${valid_category}" style="color: #c20c0c;"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: left;"> 상품명</td>
+                    <td style="text-align: left;">
+                        <input class="font" type="text" id="itemNM" name="itemNM"
+                               style="display: block; width: 350px; margin: 0 auto;" th:value="${item.itemNM}" required
+                               oninput="validateItemName()"/>
+                        <script>
+                            function validateItemName() {
+                                var itemNameInput = document.getElementById('itemNM');
+                                var itemName = itemNameInput.value.trim();
+
+                                var itemNameRegex = /^[a-zA-Z가-힣\s]{5,13}$/;
+
+                                if (!itemNameRegex.test(itemName)) {
+                                    document.getElementById('item_nm_error').innerText = '한글, 영문, 띄어쓰기로 5자 이상 13자 이하로 입력해주세요.';
+                                    itemNameInput.setCustomValidity('Invalid');
+                                } else {
+                                    document.getElementById('item_nm_error').innerText = '';
+                                    itemNameInput.setCustomValidity('');
+                                }
+                            }
+                        </script>
+                        <span th:text="${valid_item_nm}" style="color: #c20c0c;"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: left;"> 가격</td>
+                    <td style="text-align: left;">
+                        <input class="font" type="text" id="price" name="price" oninput="formatNumber(this)"
+                               style="display: block; width: 350px; margin: 0 auto;" th:value="${item.price}" required/>
+                        <script>
+                            function formatNumber(input) {
+                                // 입력값에서 숫자만 추출
+                                let num = input.value.replace(/\D/g, "");
+
+                                // 최대 9자리까지만 유지
+                                num = num.substring(0, 7);
+
+                                // 쉼표(,) 삽입
+                                num = num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                                // 입력값 업데이트
+                                input.value = num;
+                            }
+                        </script>
+                        <span th:text="${valid_price}" style="color: #c20c0c;"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: left;"> 재고수량</td>
+                    <td style="text-align: left;">
+                        <input class="font" type="text" id="stock_number" name="stock_number"
+                               style="display: block; width: 350px; margin: 0 auto;" oninput="updateInput()"
+                               th:value="${item.stock_number}" required/>
+                        <script>
+                            function updateInput() {
+                                updateSellStatus(); // 첫 번째 동작
+                                formatNumber(document.getElementById('stock_number')); // 두 번째 동작
+                            }
+                        </script>
+                        <script>
+                            function formatNumber(input) {
+                                // 입력값에서 숫자만 추출
+                                let num = input.value.replace(/\D/g, "");
+
+                                // 최대 9자리까지만 유지
+                                num = num.substring(0, 7);
+
+                                // 쉼표(,) 삽입
+                                num = num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                                // 입력값 업데이트
+                                input.value = num;
+                            }
+                        </script>
+                        <span th:text="${valid_stock_number}" style="color: #c20c0c;"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: left;"> 상품 상세 설명</td>
+                    <td style="text-align: left;">
+                        <textarea id="item_detail" name="item_detail"
+                                  style="display: block; width: 350px; margin: 0 auto;" maxlength="10"
+                                  oninput="updateByteCount(this)" th:text="${item.item_detail}" required></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: left;">상품 판매 상태</td>
+                    <td style="width: 75%; text-align: left;">
+                        <input class="font" type="text" id="item_sell_status" name="item_sell_status"
+                               style="display: block; width: 350px; margin: 0 auto;" th:value="${item.item_sell_status}"
+                               readonly>
+                        <script>
+                            // 페이지가 로드될 때 판매 상태 업데이트
+                            window.onload = function() {
+                                updateSellStatus();
+                            };
+
+                            function updateSellStatus() {
+                                var stockNumber = document.getElementById("stock_number").value;
+                                var sellStatusInput = document.getElementById("item_sell_status");
+
+                                if (stockNumber.trim() !== "") {
+                                    if (parseInt(stockNumber) >= 1) {
+                                        sellStatusInput.value = "판매중";
+                                    } else {
+                                        sellStatusInput.value = "품절";
+                                    }
+                                } else {
+                                    sellStatusInput.value = ""; // 재고수량이 입력되지 않은 경우 입력란을 비웁니다.
+                                }
+                            }
+                        </script>
+                        <span th:text="${valid_item_sell_status}" style="color: #c20c0c;"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: left;">
+                    </td>
+                    <td style="width: 75%; text-align: left;">
+                        <button class="background" type="submit">수정 완료</button>
+                    </td>
+                </tr>
+
+            </div>
+            </tbody>
+
+        </table>
+    </div>
+</form>
+<hr style="border: 1px solid gray; margin-top: 30px;">
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="company-info">
+                <h3>My Online Shopping mall</h3>
+                <p>3 Eunhaeng-ro, Yeongdeungpo-gu, Seoul, Republic of Korea (Konai, 9th floor, Exconventure Tower,
+                    Yeouido-dong) | Email: han.ej@konai.com | Phone: 02-2168-7689</p>
+            </div>
+            <p>&copy; 2024 My Online Shop. All rights reserved.</p><br>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

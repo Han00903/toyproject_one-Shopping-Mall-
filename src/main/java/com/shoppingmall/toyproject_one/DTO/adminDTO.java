@@ -12,18 +12,21 @@ import lombok.*;
 @ToString
 
 public class adminDTO {
-
-    @NotNull (message = "아이디를 입력해주세요")
+    @Pattern(regexp = "^[a-zA-Z0-9_]{5,15}$", message = "한글, 영문, 또는 띄어쓰기로 5자 이상 15자 이하여야 합니다.")
+    @NotNull(message = "아이디를 입력해주세요")
     private String admin_id;
 
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}$", message = "비밀번호는 최소 8자 이상이어야 하며, 영문, 숫자, 특수문자가 모두 포함되어야 합니다.")
     @NotNull(message = "비밀번호를 입력해주세요")
     private String admin_pw;
 
+    @Pattern(regexp = "^[가-힣a-zA-Z]+$", message = "한글과 영문 알파벳으로만 입력해주세요.")
     @NotNull(message = "이름을 입력해주세요")
     private String admin_name;
 
     @NotNull(message = "전화번호를 입력해주세요")
     private String admin_phone;
+
 //
 //
 //    @Builder

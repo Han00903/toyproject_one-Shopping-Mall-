@@ -21,28 +21,23 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "toyproject_one/main")
-    public String main(){
-        return "/user/main";
-    }
-
-    @GetMapping(value = "toyproject_one/user_main")
-    public String User_main(){
-        return "/user/user_main";
-    }
+//    @GetMapping(value = "toyproject_one/user_main")
+//    public String User_main() {
+//        return "/user/user_main";
+//    }
 
     @GetMapping("/toyproject_one/signup")
-    public String userSignupForm(){
+    public String userSignupForm() {
         return "/user/signup";
     }
 
     @GetMapping("toyproject_one/login")
-    public String loginForm(){
+    public String loginForm() {
         return "/user/login";
     }
 
     @PostMapping("/toyproject_one/signup")
-    public String save(@Valid  @ModelAttribute userDTO userDTO, Errors errors, Model model) {
+    public String save(@Valid @ModelAttribute userDTO userDTO, Errors errors, Model model) {
         if (errors.hasErrors()) {
             Map<String, String> validatorResult = userService.validateHandling(errors);
             for (String key : validatorResult.keySet()) {
@@ -54,6 +49,7 @@ public class UserController {
             return "/user/login";
         }
     }
+
     private void openModal(String s) {
     }
 
@@ -62,7 +58,7 @@ public class UserController {
         userDTO loginResult = userService.login(userDTO);
         if (loginResult != null) {
             // 로그인 성공
-            session.setAttribute("loginID", loginResult.getUser_id());
+            session.setAttribute("userID", loginResult.getUserID()); // 세션에 userID 저장
             return "/user/user_main";
         } else {
             // 로그인 실패
@@ -70,4 +66,15 @@ public class UserController {
             return "/user/login";
         }
     }
+
+    // ajax사용할때 return type앞에 ResponseBody 꼭 붙여야함
+    @PostMapping("/toyproject_one/signup/id_check")
+    public @ResponseBody String idcheck(@RequestParam("userID") String userID) {
+        String checkResult = userService.idCheck(userID);
+        return checkResult;
+    }
+
+
+
+
 }

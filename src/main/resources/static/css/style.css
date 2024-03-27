@@ -1,0 +1,110 @@
+/* styles.css */
+* {
+  box-sizing: border-box;
+}
+
+/*header 부분 틀 고정*/
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff; /* 헤더의 배경색에 맞게 설정 */
+    z-index: 900%; /* 다른 요소들보다 위에 표시되도록 설정 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 선택적으로 그림자 효과 추가 */
+}
+
+body {
+  margin: 0;
+  min-width: 992px;
+  font-family: "Helvetica";
+  padding-top: 150px; /* 헤더의 높이만큼 여백 추가 */
+
+}
+
+.logo {
+  line-height: 60px;
+  float: left;
+}
+
+.logo img {
+  vertical-align: middle;
+}
+
+.navbar ul {
+  display: inline-block;
+  float: right;
+}
+
+.navbar li {
+  list-style-type: none;
+  display: inline-block;
+  float: left;
+  margin-right: 30px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: gray;
+  font-size: 12px;
+  font-style: italic; /* 기울기 추가 */
+
+}
+
+.hero_header {
+  height: 450px;
+  width: 100%;
+}
+
+body h1 {
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  font-size: 24px;
+  font-weight: bold; /* 수정: font-style 대신 font-weight를 사용하여 굵게 표시 */
+  color: #545454;
+}
+
+.products {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  width: 740px;
+  text-align: center;
+}
+
+.products img {
+  width: 225px;
+  height: 225px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.products a {
+  text-decoration: none;
+  color: black;
+  float: left;
+  font-size: 16px;
+}
+
+.price {
+  margin-top: 4px;
+  margin-bottom: 80px;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.footer {
+  text-align: center;
+  font-size: 10px;
+}
+
+.footer img {
+  margin-top: 40px;
+  height: 20px;
+  margin-bottom: 80px;
+  margin-left: 10px;
+  margin-right: 10px;
+}

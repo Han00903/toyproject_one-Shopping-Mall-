@@ -1,10 +1,9 @@
 package com.shoppingmall.toyproject_one.DTO;
 
-
 import com.shoppingmall.toyproject_one.entity.user;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+
 import lombok.*;
 
 @Getter
@@ -13,8 +12,10 @@ import lombok.*;
 @ToString
 
 public class userDTO {
-    @NotNull (message = "아이디를 입력해주세요")
-    private String user_id;
+    @NotNull(message = "아이디를 입력해주세요")
+    @Column(name = "user_id")
+
+    private String userID;
 
     @NotNull(message = "비밀번호를 입력해주세요")
     private String user_pw;
@@ -51,7 +52,7 @@ public class userDTO {
 
     public static userDTO userDTO(user user) {
         userDTO userDTO = new userDTO();
-        userDTO.setUser_id(user.getUserID());
+        userDTO.setUserID(user.getUserID());
         userDTO.setUser_pw(user.getUser_pw());
         userDTO.setUser_name(user.getUser_name());
         userDTO.setUser_gender(user.getUser_gender());
