@@ -4,96 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/aside_nav.css">
     <link rel="stylesheet" href="/css/product_write.css">
     <title>관리자 페이지</title>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <div style="text-align: center;">
-                <br>
-                <li class="nav-item" style="padding-left: 30px; height: 60px;">
-                    <a class="nav-link" style="padding-left: 10px; padding-right: 10px;" href="#" id="adminLink">≡ Admin
-                        Page</a>
-                    <a th:href="@{/toyproject_one/main}" id="userLink"
-                       style="background-color: #ededed; padding-left: 10px; padding-right: 10px; display: none;">User</a>
-                </li>
-
-                <script>
-                    const adminLink = document.getElementById('adminLink');
-                    const userLink = document.getElementById('userLink');
-
-                    let mouseInAdminLink = false;
-                    let mouseInUserLink = false;
-
-                    adminLink.addEventListener('mouseenter', function() {
-                        mouseInAdminLink = true;
-                        setTimeout(function() {
-                            if (mouseInAdminLink && !mouseInUserLink) {
-                                userLink.style.display = 'block';
-                            }
-                        }, 200);
-                    });
-
-                    adminLink.addEventListener('mouseleave', function() {
-                        mouseInAdminLink = false;
-                        setTimeout(function() {
-                            if (!mouseInUserLink) {
-                                userLink.style.display = 'none';
-                            }
-                        }, 200);
-                    });
-
-                    userLink.addEventListener('mouseenter', function() {
-                        mouseInUserLink = true;
-                    });
-
-                    userLink.addEventListener('mouseleave', function() {
-                        mouseInUserLink = false;
-                        setTimeout(function() {
-                            if (!mouseInAdminLink) {
-                                userLink.style.display = 'none';
-                            }
-                        }, 200);
-                    });
-
-                    userLink.addEventListener('click', function(event) {
-                        event.stopPropagation();
-                        window.location.href = this.getAttribute('href');
-                    });
-
-                    document.addEventListener('click', function() {
-                        if (!mouseInUserLink) {
-                            userLink.style.display = 'none';
-                        }
-                    });
-                </script>
-                <img src="/img/logo.jpg" alt="Logo" style="max-height: 80px; max-width: 350px;">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/toyproject_one/ad_login}">로그인</a>&nbsp;&nbsp;&nbsp;
-                        <a class="nav-link" th:href="@{/toyproject_one/ad_signup}">회원가입</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <br>
-    <div style="text-align: center; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; padding: 10px 0;">
-        <div>
-            <a class="menu active" th:href="@{/toyproject_one/ad_main}"> Home</a>
-            <a class="menu " th:href="@{/toyproject_one/item/ad_list}"> All</a>
-            <a class="menu " th:href="@{/toyproject_one/item/ad_list/Outer}"> Outer</a>
-            <a class="menu " th:href="@{/toyproject_one/item/ad_list/Top}"> Top</a>
-            <a class="menu " th:href="@{/toyproject_one/item/ad_list/Bottom}"> Bottom</a>
-            <a class="menu " th:href="@{/toyproject_one/item/ad_list/Dress}"> Dress</a>
-            <a class="menu " th:href="@{/toyproject_one/item/ad_list/Accessories}"> Accessories</a>
-            <a class="menu " th:href="@{/toyproject_one/ad_board}"> Board</a>
-        </div>
-    </div>
+<header th:insert="~{admin_logout_index :: logout_menu}">
 </header>
-<img class="hero_header" src="/img/Banner1.jpg"><br><br><br>
+<img class="hero_header" src="/img/Banner1.jpg" style="margin-left: 50px;"><br><br><br>
 
 <h1>Our new Products</h1>
 <div style="text-align: center; ">
@@ -101,7 +19,8 @@
            style="width: 80%; margin: auto; border: 1px solid #dddddd; border-collapse: collapse;">
         <div class="products">
             <div th:each="item : ${items}" class="product">
-                <a th:href="@{/toyproject_one/ad_item/view(itemID=${item.itemID})}">
+                <a>
+<!--                <a th:href="@{/toyproject_one/ad_item/view(itemID=${item.itemID})}">-->
                     <img th:src="@{${item.item_img_filepath}}" alt="Product Image">
                     <p th:text="${item.itemID}"></p>
                     <p th:text="${item.itemNM}"></p>

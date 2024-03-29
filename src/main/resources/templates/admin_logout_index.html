@@ -1,0 +1,53 @@
+<!--로그아웃 했을때의 nav 양식-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/aside_nav.css">
+    <title>SideBar sub menus</title>
+</head>
+<body id="body-pd" th:fragment="logout_menu">
+<div class="l-navbar" id="navbar"
+     style="border-left: none; border-top: none; border-bottom: none; border-right: 1px solid #ccc;">
+    <nav class="nav">
+        <div>
+            <div class="nav__brand">
+                <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+                <div style="text-align: center;">
+                    <img src="/img/logo.jpg" alt="Logo" style="max-height: 50px; max-width: 250px; margin-right: 60px;">
+                    <br>
+                    <div style="margin: 20px 50px 0 0;">[Admin Page]</div>
+                </div>
+            </div>
+            <div class="nav__list">
+                <a th:href="@{/toyproject_one/ad_main}" class="nav__link active">
+                    <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+                    <span class="nav_name">Home</span>
+                </a>
+                <div class="nav__link collapse">
+                    <ion-icon name="folder-outline" class="nav__icon"></ion-icon>
+                    <span class="nav_name">Log in</span>
+                    <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+                    <ul class="collapse__menu">
+                        <a th:href="@{/toyproject_one/ad_login}" class="collapse__sublink">Login</a>
+                        <div style="margin-bottom: 20px;"></div>
+                        <a th:href="@{/toyproject_one/ad_signup}" class="collapse__sublink">Signup</a>
+                    </ul>
+                </div>
+                <a th:href="@{/toyproject_one/main}" class="nav__link">
+                    <ion-icon name="globe-outline" class="nav__icon"></ion-icon>
+                    <span class="nav_name">User Page</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- IONICONS -->
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+<!-- JS -->
+<script src="/JS/main.js"></script>
+</body>
+</html>

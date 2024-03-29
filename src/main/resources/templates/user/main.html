@@ -30,20 +30,29 @@
     <br>
     <div style="text-align: center; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; padding: 10px 0;">
         <div>
-            <a class="menu active" th:href="@{/toyproject_one/main}"> Home</a>
-            <a class="menu " th:href="@{/toyproject_one/us_item/list}"> All</a>
-            <a class="menu " th:href="@{/toyproject_one/us_item/list/Outer}"> Outer</a>
-            <a class="menu " th:href="@{/toyproject_one/us_item/list/Top}"> Top</a>
-            <a class="menu " th:href="@{/toyproject_one/us_item/list/Bottom}"> Bottom</a>
-            <a class="menu " th:href="@{/toyproject_one/us_item/list/Dress}"> Dress</a>
-            <a class="menu " th:href="@{/toyproject_one/us_item/list/Accessories}"> Accessories</a>
-            <a class="menu " th:href="@{/toyproject_one/us_board}"> 상품후기</a>
-            <a class="menu " th:href="@{/toyproject_one/us_board}"> Q&A</a>
+            <a class="menu active" th:href="@{/toyproject_one/main}">Home</a>
+            <a class="menu" th:href="@{/toyproject_one/us_item/list}">All</a>
+            <a class="menu" th:href="@{/toyproject_one/us_item/list/Outer}">Outer</a>
+            <a class="menu" th:href="@{/toyproject_one/us_item/list/Top}">Top</a>
+            <a class="menu" th:href="@{/toyproject_one/us_item/list/Bottom}">Bottom</a>
+            <a class="menu" th:href="@{/toyproject_one/us_item/list/Dress}">Dress</a>
+            <a class="menu" th:href="@{/toyproject_one/us_item/list/Accessories}">Accessories</a>
+            <div class="menu menu-board">
+                <a class="menu">Board</a>
+                <ul class="menudropdown-content">
+                    <li><a class="menu" th:href="@{/toyproject_one/us_board/productReview}">상품후기</a></li>
+                    <div style="text-align: center; padding: 10px 0;">
+                        <hr style="border-top: 1px solid #ccc; border-bottom: none;">
+                    </div>
+                    <li><a class="menu" th:href="@{/toyproject_one/us_board/QnA}">Q&A</a></li>
+                </ul>
+            </div>
             <form th:action="@{/toyproject_one/us_item/list}" method="get" style="display: inline-block;">
-                <button class="menu " type="submit">상품명 검색</button>
+                <button class="menu" type="submit">상품명 검색</button>
                 <input type="text" name="searchKeyword">
             </form>
         </div>
+
     </div>
 </header>
 <img class="hero_header" src="/img/Banner1.jpg"><br><br><br>

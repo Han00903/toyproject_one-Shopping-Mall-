@@ -5,13 +5,13 @@
 
 /*header 부분 틀 고정*/
 header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #ffffff; /* 헤더의 배경색에 맞게 설정 */
-    z-index: 900%; /* 다른 요소들보다 위에 표시되도록 설정 */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 선택적으로 그림자 효과 추가 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff; /* 헤더의 배경색에 맞게 설정 */
+  z-index: 900; /* 다른 요소들보다 위에 표시되도록 설정 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 선택적으로 그림자 효과 추가 */
 }
 
 body {
@@ -19,7 +19,7 @@ body {
   min-width: 992px;
   font-family: "Helvetica";
   padding-top: 150px; /* 헤더의 높이만큼 여백 추가 */
-
+  padding-bottom: 100px; /* footer를 가리지 않도록 하기 위한 여백 추가 */
 }
 
 .logo {
@@ -48,7 +48,6 @@ body {
   color: gray;
   font-size: 12px;
   font-style: italic; /* 기울기 추가 */
-
 }
 
 .hero_header {
@@ -97,8 +96,15 @@ body h1 {
 }
 
 .footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   text-align: center;
   font-size: 10px;
+  background-color: #333;
+  color: #fff;
+  z-index: 900; /* 다른 요소 위에 표시되도록 z-index 설정 */
 }
 
 .footer img {

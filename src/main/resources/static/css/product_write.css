@@ -3,45 +3,61 @@ body {
   min-width: 992px;
   font-family: "Helvetica";
 }
+
 .menu {
-  list-style-type: none;
-  text-decoration: none;
-  color: gray;
-  margin: 0 20px; /* 좌우 여백 유지 */
-  font-style: italic; /* 기울기 추가 */
-  position: relative; /* 부모 요소에 대한 상대 위치 설정 */
+    list-style-type: none;
+    text-decoration: none;
+    color: gray;
+    margin: 0 20px; /* 좌우 여백 유지 */
+    font-style: italic; /* 기울기 추가 */
+    position: relative; /* 부모 요소에 대한 상대 위치 설정 */
 }
 
-.menudropdown-content {
-  position: absolute;
-  min-width: 160px;
-  display: none;
-  list-style-type: none;
-  text-decoration: none;
-  color: gray;
-  margin: 0; /* 여백 제거 */
-  font-style: italic;
-  padding: 12px 16px; /* 오타 수정 */
-  background-color: #fff; /* 배경색 추가 */
-  border: 1px solid #ddd; /* 테두리 추가 */
+/* .menudropdown-content 클래스를 하위 메뉴에 적용 */
+.menu .menudropdown-content {
+    position: absolute;
+    min-width: 160px;
+    display: none;
+    list-style-type: none;
+    text-decoration: none;
+    color: gray;
+    margin: 0; /* 여백 제거 */
+    font-style: italic;
+    padding: 12px 16px; /* 오타 수정 */
+    background-color: #fff; /* 배경색 추가 */
+    border: 1px solid #ddd; /* 테두리 추가 */
+    top: 100%; /* 부모 메뉴 아래에 위치 */
+    left: 0; /* 왼쪽에 정렬 */
 }
 
-.menudropdown-content a {
-  color: black;
+.menu .menudropdown-content a {
+    color: black;
 }
 
+/* Board 메뉴의 하위 목록 */
+.menu .menudropdown-content li {
+    white-space: nowrap; /* 텍스트가 길어도 한 줄에 표시되도록 설정 */
+}
+
+/* 하위 메뉴가 부모 메뉴에 대해 호버될 때 보이도록 설정 */
 .menu:hover .menudropdown-content {
-  display: block;
+    display: block;
 }
 
-.menu:hover .menu {
-  background-color: #ddd;
+/* 부모 메뉴에 호버될 때 밑줄 및 볼드 효과 적용 */
+.menu:hover {
+    text-decoration: underline;
 }
 
-.menu:hover .menu a {
-  color: black;
+/* 부모 메뉴에 호버될 때 하위 메뉴 링크 색상 변경 */
+.menu:hover a {
+    color: gray;
 }
 
+/* Board 메뉴의 스타일 설정 */
+.menu-board {
+    display: inline-block;
+}
 
 .container {
     display: flex;

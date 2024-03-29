@@ -17,8 +17,7 @@
             <div style="text-align: center;">
                 <br>
                 <li class="nav-item" style="padding-left: 30px; height: 60px;">
-                    <a class="nav-link" style="padding-left: 10px; padding-right: 10px;" href="#" id="adminLink">Shopping
-                        Mall</a>
+                    <a class="nav-link" style="padding-left: 10px; padding-right: 10px;" href="#" id="adminLink">Shopping Mall</a>
                 </li>
                 <img src="/img/logo.jpg" alt="Logo" style="max-height: 80px; max-width: 350px;">
                 <ul class="navbar-nav">
@@ -50,7 +49,6 @@
     </div>
 </header>
 <br><br><br>
-
 <form th:action="@{/toyproject_one/signup}" method="post" modelAttribute="userDTO">
     <p class="tip"></p>
     <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
@@ -144,15 +142,6 @@
                     document.getElementById('user_pw_error').innerText = errorMessage;
                 }
             </script>
-
-<!--            <tr>-->
-<!--                <td>-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <span style="color: #999999; font-size: 2;">* 8~20자 영문 대 소문자, 숫자, 특수문자 모두 사용</span>&nbsp;-->
-<!--                </td>-->
-<!--            </tr>-->
-
             <tr>
                 <td style="text-align: right; width: 50px;">
                     <label for="user_name">성명</label>
