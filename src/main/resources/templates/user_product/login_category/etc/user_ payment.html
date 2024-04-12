@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/product_write.css">
-    <title>장바구니 페이지</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>구매 페이지</title>
 </head>
 <body>
 <header  th:insert="~{user_login_index :: user_login_menu}"></header>
@@ -41,7 +40,7 @@
         <tr th:each="cart, rowStat : ${cartList}" style="font-family: Helvetica;">
             <th:block th:if="${cart.userID == session.userID}">
                 <td style="border: 1px solid #dddddd; padding: 10px; text-align: center; font-size: 13px;">
-                    <input type="checkbox" class="itemCheckbox" value="${cart.cartID}" data-userID="${cart.userID}">
+                    <input type="checkbox" value="itemIndex" onchange="updateSelectedItems(this)" data-user-id="userID">
                 </td>
                 <td style="border: 1px solid #dddddd; padding: 10px; font-size: 13px; ">
                     <img th:src="${cart.itemImage}" alt="Item Image" width="90" height="90">
@@ -63,43 +62,8 @@
         </tr>
     </table>
     <br><br><br>
-    <button id="deleteButton">삭제</button>
-    <script>
-        $(document).ready(function(){
-            $('#deleteButton').click(function(){
-                var selectedItems = [];
-                $('.itemCheckbox:checked').each(function(){
-                    selectedItems.push($(this).val());
-                });
-                if(selectedItems.length > 0){
-                    var userId = $('.itemCheckbox:checked').data('userID');
-                    $.ajax({
-                        type: 'POST',
-                        url: '/deleteItems', // 변경 필요
-                        data: {items: selectedItems, userId: userId},
-                        success: function(response){
-                            // 성공적으로 삭제되었을 때 할 작업
-                            location.reload(); // 페이지 새로고침
-                        },
-                        error: function(xhr, status, error){
-                            console.error(xhr.responseText);
-                        }
-                    });
-                } else {
-                    alert('삭제할 항목을 선택해주세요.');
-                }
-            });
-        });
-    </script>
     <br><br><br>
-
-<!--    <span th:each="page: ${#numbers.sequence(startPage, endPage)}">-->
-<!--            <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>-->
-<!--            <a th:unless="${page == boardList.number + 1}" th:href="@{/toyproject_one/user_board/paging(page=${page})}"-->
-<!--               th:text="${page}"></a>-->
-<!--        </span>-->
-<!--</div>-->
-<footer class="footer" th:insert="~{footer :: footer}"></footer>
+    <footer class="footer" th:insert="~{footer :: footer}"></footer>
 </div>
 </body>
 </html>

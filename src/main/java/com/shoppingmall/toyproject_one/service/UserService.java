@@ -1,17 +1,19 @@
 package com.shoppingmall.toyproject_one.service;
 
+import com.shoppingmall.toyproject_one.DTO.boardDTO;
 import com.shoppingmall.toyproject_one.DTO.userDTO;
+import com.shoppingmall.toyproject_one.entity.board;
 import com.shoppingmall.toyproject_one.entity.item;
 import com.shoppingmall.toyproject_one.entity.user;
 import com.shoppingmall.toyproject_one.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -30,6 +32,10 @@ public class UserService {
     public void save(userDTO userDTO) {
         user user = com.shoppingmall.toyproject_one.entity.user.user(userDTO);
         userRepository.save(user);
+    }
+    // 회원 삭제
+    public void delete(String userID ){
+        userRepository.deleteById(userID);
     }
 
     public Map<String, String> validateHandling(Errors errors) {
@@ -76,5 +82,34 @@ public class UserService {
             // 조회결과가 없다 -> 사용할 수 있다.
             return "ok";
         }
+    }
+
+    public List<userDTO> findAll(){
+        // findAll로 repository에서 무언가를 가져올 때 entity 형식으로 받아옴
+        List<user> userList = userRepository.findAll();
+        // entity형식으로 받아온 객체를 DTO형식으로 받아 Controller로 옮겨줘야해 (-> DTO에서 생성자(?) 생성해줘)
+        List<userDTO> userDTOList = new ArrayList<>();
+        for (user user: userList) {
+            userDTOList.add(userDTO.userDTO(user));
+        }
+        return userDTOList;
+    }
+    public userDTO findByID(String userID){
+        Optional<user> optionalUser = userRepository.findById(userID);
+        if (optionalUser.isPresent()){
+            user user = optionalUser.get();
+            userDTO userDTO = com.shoppingmall.toyproject_one.DTO.userDTO.userDTO(user);
+            return userDTO;
+        }else{
+            return null;
+        }
+    }
+
+    public Page<user> userList(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
+    public Page<user> userSearchList(String searchKeyword, Pageable pageable){
+        return userRepository.findByuserIDContaining(searchKeyword, pageable);
     }
 }

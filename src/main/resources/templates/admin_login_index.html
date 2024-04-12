@@ -1,14 +1,11 @@
 <!--로그인 했을때의 nav 양식-->
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- CSS -->
     <link rel="stylesheet" href="/css/aside_nav.css">
-
     <title>SideBar sub menus</title>
 </head>
 <body id="body-pd" th:fragment="login_menu">
@@ -29,9 +26,9 @@
                     <ion-icon name="home-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">Home</span>
                 </a>
-                <a href="#" class="nav__link">
+                <a th:href="@{/toyproject_one/admin_board/user_list}" class="nav__link">
                     <ion-icon name="people-outline" class="nav__icon"></ion-icon>
-                    <span class="nav_name">User List</span>
+                    <span class="nav_name">User</span>
                 </a>
                 <div href="#" class="nav__link collapse">
                     <ion-icon name="folder-outline" class="nav__icon"></ion-icon>
@@ -48,15 +45,15 @@
                     <span class="nav_name">Board</span>
                     <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
                     <ul class="collapse__menu">
-                        <a href="#" class="collapse__sublink">Reviews</a>
-                        <div style="margin-bottom: 20px;"></div>
-                        <a href="#" class="collapse__sublink">Q&A</a>
+                        <a th:href="@{/toyproject_one/admin_board/review_list}" class="collapse__sublink">Reviews</a>
+<!--                        <div style="margin-bottom: 20px;"></div>-->
+<!--                        <a href="#" class="collapse__sublink">Q&A</a>-->
                     </ul>
                 </div>
-                <a href="#" class="nav__link">
-                    <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
-                    <span class="nav_name">내 정보 수정</span>
-                </a>
+<!--                <a href="#" class="nav__link">-->
+<!--                    <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>-->
+<!--                    <span class="nav_name">내 정보 수정</span>-->
+<!--                </a>-->
             </div>
             <a th:href="@{/toyproject_one/ad_main}" class="nav__link">
                 <ion-icon name="log-out-outline" class="nav__icon"></ion-icon>
@@ -65,10 +62,7 @@
         </div>
     </nav>
 </div>
-
-<!-- IONICONS -->
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-<!-- JS -->
 <script src="/JS/main.js"></script>
 </body>
 </html>

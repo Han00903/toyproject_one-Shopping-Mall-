@@ -2,6 +2,7 @@ package com.shoppingmall.toyproject_one.controller;
 
 import com.shoppingmall.toyproject_one.entity.item;
 import com.shoppingmall.toyproject_one.service.ItemService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class ItemController {
     public String itemWritePro(@ModelAttribute("item") item item, Model model, @RequestParam("file") MultipartFile file) throws Exception {
         itemService.write(item, file);
 
-        model.addAttribute("message", "글 작성이 완료되었습니다.");
+        model.addAttribute("message", "상품 등록이 완료되었습니다.");
         model.addAttribute("searchUrl", "/toyproject_one/item/list");
 
         return "message";
@@ -44,14 +46,25 @@ public class ItemController {
     @GetMapping(value = "/toyproject_one/item/list")
     public String itemList(Model model,
                            @PageableDefault(page = 0, size = 9, sort = "itemID", direction = Sort.Direction.DESC) Pageable pageable, /* page 번호 */
-                           @ModelAttribute("searchKeyword") String searchKeyword) { /* 검색 기능 *******왜 맨위 한개만 검색이 가능한거지???????????*/
+                           @ModelAttribute("searchKeyword") String searchKeyword,
+                           HttpServletRequest request,
+                           RedirectAttributes redirectAttributes) { /* 검색 기능 *******왜 맨위 한개만 검색이 가능한거지???????????*/
 
-        Page<item> list = itemService.itemList(pageable);
+        Page<item> list;
 
-        if(searchKeyword == null){
+        if (searchKeyword == null || searchKeyword.isEmpty()) {
             list = itemService.itemList(pageable);
-        }else{
+        } else {
             list = itemService.itemSearchList(searchKeyword, pageable);
+        }
+
+        if (list.isEmpty()) {
+            // 검색 결과가 없는 경우 메시지 출력 & 이전페이지로 이동
+            model.addAttribute("message", "해당 상품이 존재하지 않습니다.");
+            String referer = request.getHeader("Referer");
+            model.addAttribute("searchUrl", referer);
+
+            return "message";
         }
 
         int nowPage = list.getPageable().getPageNumber() + 1;
@@ -104,7 +117,7 @@ public class ItemController {
         itemTemp.setItemNM(item.getItemNM());
         itemTemp.setPrice(item.getPrice());
         itemTemp.setStock_number(item.getStock_number());
-        itemTemp.setItem_detail(item.getItem_detail());
+//        itemTemp.setItem_detail(item.getItem_detail());
         itemTemp.setItem_sell_status(item.getItem_sell_status());
         itemTemp.setItem_img_filepath(item.getItem_img_filepath());
         itemService.write(itemTemp, file);

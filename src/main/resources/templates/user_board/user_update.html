@@ -2,20 +2,113 @@
 <html lang=" utf-8"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/product_write.css">
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/product_write.css">
+    <title>수정페이지</title>
 </head>
 <body>
-
-<form th:action="@{/toyproject_one/user_board/update/{boardID}(boardID=${board.boardID})}" method="post">
-
-
+<header  th:insert="~{user_login_index :: user_login_menu}"></header>
+<br><br><br>
 
 
+<form th:action="@{/toyproject_one/user_board/update/{itemID}/{boardID}(itemID=${itemID},boardID=${boardID})}"
+      method="post" name="updateForm">
+    <div style="text-align: center;">
+        <table style="margin: 0 auto; border: 1px solid #dddddd; border-collapse: collapse;">
+            <p class="tip"></p>
+            <thead>
+            <tr>
+                <th class="navbar" colspan="2" style="text-align: center;">
+                    <h3 style="margin: 0;">상품 후기(수정)</h3>
+                </th>
+            </tr>
+            </thead>
 
+            <tbody>
+            <tr>
+                <td style="text-align: left;"> 상품 이미지</td>
+                <td style="text-align: left;" class="font">
+                    <img th:src="@{${item.item_img_filepath}}" style="width: 200px; height: 200px;"/>
+                </td>
+            </tr>
 
+            <tr>
+                <td style="width: 25%; text-align: left;">상품코드</td>
+                <td style="width: 75%; text-align: left;">
+                    <input class="font" type="text" id="itemID" name="itemID"
+                           style="display: block; width: 350px; margin: 0 auto; border: none;" readonly
+                           th:value="${item.itemID}">
+                    <span th:text="${valid_itemID}" style="color: #c20c0c;"></span>
+                </td>
+            </tr>
 
+            <tr>
+                <td style="width: 25%; text-align: left;"> 문의 번호</td>
+                <td style="width: 75%; text-align: right;">
+                    <input class="font" type="text" id="boardID" name="boardID"
+                           style="display: block; width: 350px; margin: 0 auto; border: none; "
+                           th:value="${boardUpdate.boardID}"
+                           required readonly/>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left;"> 작성자</td>
+                <td style="text-align: left;">
+                    <input class="font" type="text" readonly id="userID" name="userID"
+                           style="display: block; width: 350px; margin: 0 auto; border: none;"
+                           th:value="${session.userID}"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="text-align: left;"> 게시판 비밀번호</td>
+                <td style="text-align: left;">
+                    <input class="font" type="password" id="boardPW" name="boardPW"
+                           style="display: block; width: 350px; margin: 0 auto;" required/>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="text-align: left;"> 제목</td>
+                <td style="text-align: left;">
+                    <input class="font" type="text" id="boardTitle" name="boardTitle"
+                           style="display: block; width: 350px; margin: 0 auto;" th:value="${boardUpdate.boardTitle}"
+                           required/>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="text-align: left;"> 내용</td>
+                <td style="text-align: left;">
+                    <textarea class="font" style="display: block; width: 350px; height: 200px; margin: 0 auto;"
+                              id="boardContent" name="boardContent" th:value="${boardUpdate.boardContent}"
+                              required></textarea>
+                </td>
+                <input type="hidden" name="boardHits" th:value="${boardUpdate.boardHits}">
+
+            <tr>
+                <td style="text-align: center;"></td>
+                <td style="width: 75%; text-align: center;">
+                    <button class="background" type="submit" onclick="boardUpdate()">수정</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+<script th:inline="javascript">
+    const boardUpdate = () => {
+        const pass = [[${boardUpdate.boardPW}]];
+        const inputPass = document.getElementByID("boardPW").value;
+        if(pass == inputPass) {
+            document.updateForm.submit();
+    } else {
+        alert("비밀번호가 일치하지 않습니다!");
+    }
+}
+</script>
+<br>
+<footer class="footer" th:insert="~{footer :: footer}"></footer>
 </body>
 </html>

@@ -58,7 +58,7 @@ public class AdminController {
             model.addAttribute("message", "다시 입력해주세요.");
             model.addAttribute("searchUrl", "/toyproject_one/ad_signup");
 
-            return "message"; // 회원가입이 완료된 경우 메시지 페이지를 보여줌
+            return "message";
 
         } else {
             // 에러가 발생하지 않은 경우
@@ -89,6 +89,14 @@ public class AdminController {
             return "message";
         }
     }
+
+    @GetMapping("/toyproject_one/test") // 회원가입 페이지 출력 요청
+    public String testForm() {
+
+        return "Dashboard";
+    }
+
+
 
     @PostMapping("/toyproject_one/ad_signup/ad_id_check")
     public @ResponseBody String ad_idcheck (@RequestParam("admin_id") String admin_id){

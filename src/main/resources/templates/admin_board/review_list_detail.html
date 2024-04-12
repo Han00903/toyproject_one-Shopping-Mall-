@@ -4,29 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/aside_nav.css">
     <link rel="stylesheet" href="/css/product_write.css">
-    <title>상품 문의 페이지</title>
+    <title>리뷰 상세 페이지</title>
 </head>
-<body>
-<header th:insert="~{user_login_index :: user_login_menu}"></header>
+<header th:insert="~{admin_login_index :: login_menu}">
+</header>
 <br><br><br>
 
 <div style="text-align: center;">
     <table style="margin: 0 auto; border: 1px solid #dddddd; border-collapse: collapse;">
         <p class="tip"></p>
-        <!--        <thead>-->
-        <!--        <tr>-->
-        <!--            <th class="navbar" colspan="2" style="text-align: center;">-->
-        <!--                <h3 style="margin: 0;">상품 후기</h3>-->
-        <!--            </th>-->
-        <!--        </tr>-->
-        <!--        </thead>-->
         <tbody>
         <tr>
-            <td style="text-align: left;"> 상품</td>
-            <td>
+            <td style="text-align: left;">
                 <img th:src="@{${item.item_img_filepath}}" style="width: 200px; height: 200px;"/>
             </td>
+            <td ></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;"> 상품명</td>
+            <td th:text="${item.itemNM}"></td>
         </tr>
         <tr>
             <td style="text-align: left;"> 작성자</td>
@@ -44,20 +42,11 @@
     </table>
     <br><br>
     <button onclick="listReq()">목록</button>
-    <button th:if="${session.userID == board.userID}" onclick="updateReq()">수정</button>
-    <button th:if="${session.userID == board.userID}" onclick="confirmDelete()">삭제</button>
-
+    <button onclick="confirmDelete()">삭제</button>
     <script th:inline="javascript">
         const listReq = () => {
             console.log("목록 요청");
             history.back(); // 이전 페이지로 이동
-        }
-
-        const updateReq = () => {
-            console.log("수정 요청");
-            const itemID = [[${item.itemID}]]; // itemID를 가져옵니다.
-            const boardID = [[${board.boardID}]]; // boardID를 가져옵니다.
-            location.href = "/toyproject_one/user_board/update/" + itemID + "/" + boardID;
         }
 
         const confirmDelete = () => {
@@ -66,11 +55,11 @@
                 console.log("삭제 요청");
                 const itemID = [[${item.itemID}]]; // itemID를 가져옵니다.
                 const boardID = [[${board.boardID}]]; // boardID를 가져옵니다.
-                location.href = "/toyproject_one/user_board/delete/" + itemID + "/" + boardID;
+                location.href = "/toyproject_one/admin_board/delete/" + itemID + "/" + boardID;
             }
         }
     </script>
-    <br><br><br>
+    <br><br><br><br><br><br><br>
     <footer class="footer" th:insert="~{footer :: footer}"></footer>
 </div>
 </body>

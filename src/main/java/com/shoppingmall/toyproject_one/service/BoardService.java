@@ -5,6 +5,10 @@ import com.shoppingmall.toyproject_one.entity.board;
 import com.shoppingmall.toyproject_one.repository.BoardRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -47,5 +51,33 @@ public class BoardService {
         }else{
             return null;
         }
+    }
+
+    public boardDTO update(boardDTO boardDTO){
+        board board = com.shoppingmall.toyproject_one.entity.board.toUpdateEntity(boardDTO);
+        boardRepository.save(board);
+        return findByID(boardDTO.getBoardID());
+    }
+
+    public void delete(String boardId){
+        boardRepository.deleteById(boardId);
+    }
+
+//    public Page<boardDTO> paging(Pageable pageable){
+//        int page = pageable.getPageNumber() -1;
+//        int pageLimit = 1 ; // 한 페이지에 보여줄 글 갯수
+//        Page<board> board =
+//                boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "boardCreatedTime")));
+//
+//        Page<boardDTO> boardDTOS = board.map(board1 -> new boardDTO (board1.getUserID(), board1.getItemID(), board1.getBoardTitle(), board1.getBoardHits(), board1.getBoardCreatedTime()));
+//        return boardDTOS;
+//    }
+
+    public Page<board> boardList(Pageable pageable) {
+        return boardRepository.findAll(pageable);
+    }
+
+    public Page<board> boardSearchList(String searchKeyword, Pageable pageable){
+        return boardRepository.findByboardIDContaining(searchKeyword, pageable);
     }
 }

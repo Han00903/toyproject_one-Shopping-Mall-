@@ -1,0 +1,60 @@
+<!--로그인 했을때의 nav 양식-->
+<!DOCTYPE html>
+<html lang=" utf-8"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/product_write.css">
+    <title>로그인 페이지</title>
+</head>
+<header  th:fragment="user_login_menu">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div style="text-align: center;">
+                <br>
+                <li class="nav-item" style="padding-left: 30px; height: 60px;">
+                    <a class="nav-link" style="padding-left: 10px; padding-right: 10px;" href="#" id="adminLink">Shopping
+                        Mall</a>
+                </li>
+                <img src="/img/logo.jpg" alt="Logo" style="max-height: 80px; max-width: 350px;">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/toyproject_one/main}">로그아웃</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div style="text-align: center; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; padding: 10px 0;">
+        <div>
+            <a class="menu active" th:href="@{/toyproject_one/user_main}"> Home</a>
+            <a class="menu " th:href="@{/toyproject_one/user_item/list}"> All</a>
+            <a class="menu " th:href="@{/toyproject_one/user_item/list/Outer}"> Outer</a>
+            <a class="menu " th:href="@{/toyproject_one/user_item/list/Top}"> Top</a>
+            <a class="menu " th:href="@{/toyproject_one/user_item/list/Bottom}"> Bottom</a>
+            <a class="menu " th:href="@{/toyproject_one/user_item/list/Dress}"> Dress</a>
+            <a class="menu " th:href="@{/toyproject_one/user_item/list/Accessories}"> Accessories</a>
+            <a class="menu" th:href="@{/toyproject_one/user_item/cartList/{userID}(userID=${session.userID})}">장바구니</a>
+
+            <!--            <div class="menu menu-board">-->
+<!--                <a class="menu">My page</a>-->
+<!--                <ul class="menudropdown-content">-->
+<!--                    <li><a class="menu" th:href="@{/toyproject_one/user_item/user_cart/{userID}(userID=${userID})}">장바구니</a></li>-->
+<!--                    <div style="text-align: center; padding: 10px 0;">-->
+<!--                        <hr style="border-top: 1px solid #ccc; border-bottom: none;">-->
+<!--                    </div>-->
+<!--                    <li><a class="menu" th:href="@{/toyproject_one/user_page}">내 정보</a></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+            <form th:action="@{/toyproject_one/user_item/list}" method="get" style="display: inline-block;">
+                <input type="text" name="searchKeyword">
+                <button class="menu " type="submit">상품명 검색</button>
+            </form>
+        </div>
+    </div>
+</header>
+<body>
+</body>
+</html>

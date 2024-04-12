@@ -32,7 +32,7 @@ public class ItemService {
     // 글 작성 처리
     public void write(item item, MultipartFile file) throws Exception {
 
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
+        String projectPath = System.getProperty("user.dir") + "/src/main/webapp/files";
 
         UUID uuid = UUID.randomUUID();
 

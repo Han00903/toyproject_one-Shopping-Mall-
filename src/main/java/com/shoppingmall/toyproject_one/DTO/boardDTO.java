@@ -47,6 +47,18 @@ public class boardDTO {
     @Column(name = "board_update_time")
     private LocalDateTime boardUpdatedTime;
 
+    public boardDTO(String userID, String itemID, String boardTitle, int boardHits, LocalDateTime boardCreatedTime) {
+        this.userID = userID;
+        this.itemID = itemID;
+        this.boardTitle = boardTitle;
+        this.boardHits = boardHits;
+        this.boardCreatedTime = boardCreatedTime;
+    }
+
+    public boardDTO() {
+
+    }
+
     public static boardDTO boardDTO(board board) {
         boardDTO boardDTO = new boardDTO();
         boardDTO.setBoardID(board.getBoardID());
@@ -62,6 +74,5 @@ public class boardDTO {
 
         return boardDTO;
     }
-
 
 }

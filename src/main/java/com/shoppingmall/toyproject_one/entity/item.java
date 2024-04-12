@@ -23,13 +23,13 @@ public class item {
     private String itemNM;
 
     @ Column(nullable = false)
-    private String price;
+    private int price;
 
     @ Column(nullable = false)
     private String stock_number;
 
-    @ Column(nullable = false)
-    private String item_detail;
+//    @ Column(nullable = false)
+//    private String item_detail;
 
     @ Column(nullable = false)
     private String item_sell_status;
@@ -49,7 +49,7 @@ public class item {
         item.setItemNM(itemDTO.getItemNM());
         item.setPrice(itemDTO.getPrice());
         item.setStock_number(itemDTO.getStock_number());
-        item.setItem_detail(itemDTO.getItem_detail());
+//        item.setItem_detail(itemDTO.getItem_detail());
         item.setItem_sell_status(itemDTO.getItem_sell_status());
         item.setItem_img_filepath(itemDTO.getItem_img_filepath());
         return item;

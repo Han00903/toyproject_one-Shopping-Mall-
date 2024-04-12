@@ -50,4 +50,18 @@ public class board extends boardBase{
 
         return board;
     }
+
+    public static board toUpdateEntity(boardDTO boardDTO) {
+        board board = new board();
+        board.setBoardID(boardDTO.getBoardID());
+        board.setBoardPW(boardDTO.getBoardPW());
+        board.setUserID(boardDTO.getUserID());
+        board.setItemID(boardDTO.getItemID());
+        board.setBoardImgFilepath(boardDTO.getBoardImgFilepath());
+        board.setBoardTitle(boardDTO.getBoardTitle());
+        board.setBoardContent(boardDTO.getBoardContent());
+        board.setBoardHits(board.getBoardHits());
+
+        return board;
+    }
 }

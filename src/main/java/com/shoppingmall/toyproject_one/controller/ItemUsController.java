@@ -3,6 +3,7 @@ package com.shoppingmall.toyproject_one.controller;
 
 import com.shoppingmall.toyproject_one.entity.item;
 import com.shoppingmall.toyproject_one.service.ItemService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -31,17 +33,27 @@ public class ItemUsController {
     // 페이징 처리 -> pageable
     @GetMapping(value = "/toyproject_one/us_item/list")
     public String itemList(Model model,
-                           @PageableDefault(page = 0, size = 9, sort = "itemID", direction = Sort.Direction.DESC) Pageable pageable, /* page 번호 */
-                           @ModelAttribute("searchKeyword") String searchKeyword) { /* 검색 기능 *******왜 맨위 한개만 검색이 가능한거지???????????*/
+                           @PageableDefault(page = 0, size = 9, sort = "itemID", direction = Sort.Direction.DESC) Pageable pageable,
+                           @ModelAttribute("searchKeyword") String searchKeyword,
+                           HttpServletRequest request,
+                           RedirectAttributes redirectAttributes) {
 
-        Page<item> list = itemService.itemList(pageable);
+        Page<item> list;
 
-        if (searchKeyword == null) {
+        if (searchKeyword == null || searchKeyword.isEmpty()) {
             list = itemService.itemList(pageable);
         } else {
             list = itemService.itemSearchList(searchKeyword, pageable);
         }
 
+        if (list.isEmpty()) {
+            // 검색 결과가 없는 경우 메시지 출력 & 이전페이지로 이동
+            model.addAttribute("message", "해당 상품이 존재하지 않습니다.");
+            String referer = request.getHeader("Referer");
+            model.addAttribute("searchUrl", referer);
+
+            return "message";
+        }
 
         int nowPage = list.getPageable().getPageNumber() + 1;
         int startPage = Math.max(nowPage - 4, 1);
@@ -54,6 +66,7 @@ public class ItemUsController {
 
         return "/user_product/logout_category/us_All";
     }
+
 
     @GetMapping(value = "/toyproject_one/us_view")
     public String itemView(Model model, @RequestParam("itemID") String itemID) {
@@ -150,7 +163,7 @@ public class ItemUsController {
     public String main(Model model) {
         List<item> items = itemService.getItemsDescendingOrder(9);
         model.addAttribute("items", items);
+
         return "/user/main";
     }
-
 }

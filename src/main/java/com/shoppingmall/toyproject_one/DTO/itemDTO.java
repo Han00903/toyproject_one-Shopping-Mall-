@@ -31,14 +31,14 @@ public class itemDTO {
 
     @NotNull(message = "상품 가격을 입력해주세요")
     @Pattern(regexp = "^([1-9]\\d{0,2}(,\\d{3})*|10000000)$", message = "1 ~ 9,999,999 사이의 양수만 입력 가능합니다.")
-    private String price;
+    private int price;
 
     @NotNull(message = "수량을 선택해주세요")
     @Pattern(regexp = "^([1-9]\\d{0,2}(,\\d{3})*|10000000)$", message = "1 ~ 9,999,999 사이의 양수만 입력 가능합니다.")
     private String stock_number;
 
-    @NotNull(message = "제품 상세 설명을 입력해주세요")
-    private String item_detail;
+//    @NotNull(message = "제품 상세 설명을 입력해주세요")
+//    private String item_detail;
 
     @NotNull
     private String item_sell_status;
@@ -71,7 +71,7 @@ public class itemDTO {
         itemDTO.setItemNM(item.getItemNM());
         itemDTO.setPrice(item.getPrice());
         itemDTO.setStock_number(item.getStock_number());
-        itemDTO.setItem_detail(item.getItem_detail());
+//        itemDTO.setItem_detail(item.getItem_detail());
         itemDTO.setItem_sell_status(item.getItem_sell_status());
         itemDTO.setItem_img_filepath(item.getItem_img_filepath());
         return itemDTO;

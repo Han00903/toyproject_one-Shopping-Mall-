@@ -65,7 +65,4 @@ public class user {
         user.setUser_phone(userDTO.getUser_phone());
         return user;
     }
-
-
-
 }

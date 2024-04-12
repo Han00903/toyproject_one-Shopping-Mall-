@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang=" utf-8"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/aside_nav.css">
+    <link rel="stylesheet" href="/css/product_write.css">
+    <title>리뷰 관리 페이지</title>
+</head>
+<header th:insert="~{admin_login_index :: login_menu}">
+</header>
+<body>
+<div class="row justify-content-center">
+    <div style="text-align: center; ">
+        <table class="table table-striped" style="width: 80%; margin: auto; border-collapse: collapse;">
+            <thead>
+            <tr>
+                <th style="font-family: Helvetica; text-align: center; font-size: 11px; color: gray; border-top: 1px solid #dddddd; border-bottom: 3px solid #ccc; padding: 8px; width: 150px;">
+                    Subject
+                </th>
+                <th style="font-family: Helvetica; text-align: center; font-size: 11px; color: gray; border-top: 1px solid #dddddd; border-bottom: 3px solid #ccc; padding: 8px; width: 50px;">
+                    ID
+                </th>
+                <th style="font-family: Helvetica; text-align: center; font-size: 11px; color: gray; border-top: 1px solid #dddddd; border-bottom: 3px solid #ccc; padding: 8px; width: 80px;">
+                    DATE
+                </th>
+                <th style="font-family: Helvetica; text-align: center; font-size: 11px; color: gray; border-top: 1px solid #dddddd; border-bottom: 3px solid #ccc; padding: 8px; width: 10px;">
+                    HIT
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="board : ${boardList}" style="font-family: Helvetica;">
+                <td style="border-top: 1px solid #dddddd; border-bottom: 1px solid #dddddd; padding: 8px; font-size: 11px;">
+                    <a th:href="@{|/toyproject_one/admin_board/${board.itemID}/${board.boardID}|}"
+                            th:text="${board.boardTitle}"></a>
+                </td>
+                <td style="border-top: 1px solid #dddddd; border-bottom: 1px solid #dddddd; padding: 8px; font-size: 11px;">
+                    <a th:href="@{|/toyproject_one/admin_board/${board.itemID}/${board.boardID}|}"
+                            th:text="${board.userID}"></a>
+                </td>
+                <td style="border-top: 1px solid #dddddd; border-bottom: 1px solid #dddddd; padding: 8px; font-size: 11px;">
+                    <a th:href="@{|/toyproject_one/admin_board/${board.itemID}/${board.boardID}|}"
+                       th:text="*{#temporals.format(board.boardCreatedTime,'yyyy-MM-dd HH:mm:ss')}"></a>
+                </td>
+                <td style="border-top: 1px solid #dddddd; border-bottom: 1px solid #dddddd; padding: 8px; font-size: 11px;">
+                    <a th:href="@{|/toyproject_one/admin_board/${board.itemID}/${board.boardID}|}"
+                       th:text="${board.boardHits}"></a>
+                </td>
+                </th:block>
+            </tr>
+            </tbody>
+        </table>
+        <br><br><br>
+        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+            <a th:if="${page != nowPage}"
+               th:href="@{/toyproject_one/admin_board/review_list(page=${page-1}, searchKeyword=${param.searchKeyword})}"
+               th:text="${page}"></a>
+            <strong th:if="${page == nowPage}" th:text="${page}" style="color:gray"></strong>&nbsp;
+        </th:block>
+        <br><br><br>
+    </div>
+</div>
+</body>
+</html>

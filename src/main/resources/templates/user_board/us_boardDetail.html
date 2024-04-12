@@ -10,18 +10,11 @@
 <body>
 <header th:insert="~{user_login_index :: user_login_menu}"></header>
 <br><br><br>
-
 <div style="text-align: center;">
     <table style="margin: 0 auto; border: 1px solid #dddddd; border-collapse: collapse;">
         <p class="tip"></p>
-        <!--        <thead>-->
-        <!--        <tr>-->
-        <!--            <th class="navbar" colspan="2" style="text-align: center;">-->
-        <!--                <h3 style="margin: 0;">상품 후기</h3>-->
-        <!--            </th>-->
-        <!--        </tr>-->
-        <!--        </thead>-->
         <tbody>
+        <h2>상품 문의</h2>
         <tr>
             <td style="text-align: left;"> 상품</td>
             <td>
@@ -44,30 +37,10 @@
     </table>
     <br><br>
     <button onclick="listReq()">목록</button>
-    <button th:if="${session.userID == board.userID}" onclick="updateReq()">수정</button>
-    <button th:if="${session.userID == board.userID}" onclick="confirmDelete()">삭제</button>
-
     <script th:inline="javascript">
         const listReq = () => {
             console.log("목록 요청");
             history.back(); // 이전 페이지로 이동
-        }
-
-        const updateReq = () => {
-            console.log("수정 요청");
-            const itemID = [[${item.itemID}]]; // itemID를 가져옵니다.
-            const boardID = [[${board.boardID}]]; // boardID를 가져옵니다.
-            location.href = "/toyproject_one/user_board/update/" + itemID + "/" + boardID;
-        }
-
-        const confirmDelete = () => {
-            console.log("삭제 요청 확인");
-            if (confirm("정말로 삭제하시겠습니까?")) {
-                console.log("삭제 요청");
-                const itemID = [[${item.itemID}]]; // itemID를 가져옵니다.
-                const boardID = [[${board.boardID}]]; // boardID를 가져옵니다.
-                location.href = "/toyproject_one/user_board/delete/" + itemID + "/" + boardID;
-            }
         }
     </script>
     <br><br><br>

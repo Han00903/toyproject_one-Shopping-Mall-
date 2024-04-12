@@ -11,9 +11,10 @@
 <body>
 <header th:insert="~{admin_logout_index :: logout_menu}">
 </header>
-<img class="hero_header" src="/img/Banner1.jpg" style="margin-left: 50px;"><br><br><br>
+<!--<img class="hero_header" src="/img/Banner1.jpg" style="margin-left: 50px;">-->
+<br><br><br>
 
-<h1>Our new Products</h1>
+<h1>New Products</h1>
 <div style="text-align: center; ">
     <table class="table table-striped"
            style="width: 80%; margin: auto; border: 1px solid #dddddd; border-collapse: collapse;">
@@ -31,17 +32,6 @@
     </table>
 </div>
 <hr style="border: 1px solid gray; margin-top: 30px;">
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="company-info">
-                <h3>My Online Shopping mall</h3>
-                <p>3 Eunhaeng-ro, Yeongdeungpo-gu, Seoul, Republic of Korea (Konai, 9th floor, Exconventure Tower,
-                    Yeouido-dong) | Email: han.ej@konai.com | Phone: 02-2168-7689</p>
-            </div>
-            <p>&copy; 2024 My Online Shop. All rights reserved.</p><br>
-        </div>
-    </div>
-</footer>
+<footer class="footer" th:insert="~{footer :: footer}"></footer>
 </body>
 </html>

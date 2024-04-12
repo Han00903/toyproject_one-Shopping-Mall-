@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang=" utf-8"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/aside_nav.css">
+    <link rel="stylesheet" href="/css/product_write.css">
+    <title>회원 관리 리스트 페이지</title>
+</head>
+<header th:insert="~{admin_login_index :: login_menu}">
+</header>
+<br><br><br>
+
+<div style="text-align: center;">
+    <table style="margin: 0 auto; border: 1px solid #dddddd; border-collapse: collapse;">
+        <p class="tip"></p>
+        <tbody>
+        <tr>
+            <td style="text-align: left;"> 작성자</td>
+            <td th:text="${user.userID}"></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;"> 성함</td>
+            <td th:text="${user.user_name}"></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;"> 성별</td>
+            <td th:text="${user.user_gender}"></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;"> 주소</td>
+            <td th:text="${user.user_address}"></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;"> 이메일 주소</td>
+            <td th:text="${user.user_email}"></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;"> 핸드폰 번호</td>
+            <td th:text="${user.user_phone}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <br><br>
+    <button onclick="listReq()">목록</button>
+    <button onclick="confirmDelete()">삭제</button>
+
+    <script th:inline="javascript">
+        const listReq = () => {
+            console.log("목록 요청");
+            history.back(); // 이전 페이지로 이동
+        }
+
+        const confirmDelete = () => {
+            console.log("삭제 요청 확인");
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                console.log("삭제 요청");
+                const userID = [[${user.userID}]]; // itemID를 가져옵니다.
+                location.href = "/toyproject_one/user_list/delete/" + userID ;
+            }
+        }
+    </script>
+    <br><br><br>
+</body>
+</div>
+</html>

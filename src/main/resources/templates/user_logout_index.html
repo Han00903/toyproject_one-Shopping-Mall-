@@ -1,0 +1,59 @@
+<!--로그아웃 했을때의 nav 양식-->
+<!DOCTYPE html>
+<html lang=" utf-8"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/product_write.css">
+    <title>로그아웃 페이지</title>
+</head>
+<header  th:fragment="user_logout_menu">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div style="text-align: center;">
+                <br>
+                <li class="nav-item" style="padding-left: 30px; height: 60px;">
+                    <a class="nav-link" style="padding-left: 10px; padding-right: 10px;" href="#" id="adminLink">Shopping Mall</a>
+                </li>
+                <img src="/img/logo.jpg" alt="Logo" style="max-height: 80px; max-width: 350px;">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/toyproject_one/login}">로그인</a>&nbsp;&nbsp;&nbsp;
+                        <a class="nav-link" th:href="@{/toyproject_one/signup}">회원가입</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div style="text-align: center; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; padding: 10px 0;">
+        <div>
+            <a class="menu active" th:href="@{/toyproject_one/main}">Home</a>
+            <a class="menu" th:href="@{/toyproject_one/us_item/list}">All</a>
+            <a class="menu" th:href="@{/toyproject_one/us_item/list/Outer}">Outer</a>
+            <a class="menu" th:href="@{/toyproject_one/us_item/list/Top}">Top</a>
+            <a class="menu" th:href="@{/toyproject_one/us_item/list/Bottom}">Bottom</a>
+            <a class="menu" th:href="@{/toyproject_one/us_item/list/Dress}">Dress</a>
+            <a class="menu" th:href="@{/toyproject_one/us_item/list/Accessories}">Accessories</a>
+            <!--            <div class="menu menu-board">-->
+            <!--                <a class="menu">Board</a>-->
+            <!--                <ul class="menudropdown-content">-->
+            <!--                    <li><a class="menu" th:href="@{/toyproject_one/us_board/productReview}">상품후기</a></li>-->
+            <!--                    <div style="text-align: center; padding: 10px 0;">-->
+            <!--                        <hr style="border-top: 1px solid #ccc; border-bottom: none;">-->
+            <!--                    </div>-->
+            <!--                    <li><a class="menu" th:href="@{/toyproject_one/us_board/QnA}">Q&A</a></li>-->
+            <!--                </ul>-->
+            <!--            </div>-->
+            <form th:action="@{/toyproject_one/us_item/list}" method="get" style="display: inline-block;">
+                <input type="text" name="searchKeyword">
+                <button class="menu" type="submit">상품명 검색</button>
+            </form>
+        </div>
+
+    </div>
+</header>
+<body>
+</body>
+</html>
