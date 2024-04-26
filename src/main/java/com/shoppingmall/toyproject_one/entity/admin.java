@@ -35,7 +35,6 @@ public class admin {
 //    }
 //
 //    public admin() {
-//
 //    }
 
     public static admin admin(adminDTO adminDTO){
@@ -47,5 +46,4 @@ public class admin {
         admin.setAdmin_phone(adminDTO.getAdmin_phone());
         return admin;
     }
-
 }

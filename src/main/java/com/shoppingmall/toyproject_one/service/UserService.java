@@ -1,9 +1,6 @@
 package com.shoppingmall.toyproject_one.service;
 
-import com.shoppingmall.toyproject_one.DTO.boardDTO;
 import com.shoppingmall.toyproject_one.DTO.userDTO;
-import com.shoppingmall.toyproject_one.entity.board;
-import com.shoppingmall.toyproject_one.entity.item;
 import com.shoppingmall.toyproject_one.entity.user;
 import com.shoppingmall.toyproject_one.repository.UserRepository;
 import jakarta.transaction.Transactional;

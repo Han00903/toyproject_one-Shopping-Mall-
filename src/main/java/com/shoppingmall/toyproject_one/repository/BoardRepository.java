@@ -1,7 +1,6 @@
 package com.shoppingmall.toyproject_one.repository;
 
 import com.shoppingmall.toyproject_one.entity.board;
-import com.shoppingmall.toyproject_one.entity.user;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,6 +19,6 @@ public interface BoardRepository extends JpaRepository<board, String> {
     void updateHits(@Param("boardID") String boardID);
 
     // 페이징 처리
-    Page<board> findByboardIDContaining(String searchKeyword, Pageable pageable);
+    Page<board> findAllByOrderByBoardCreatedTimeDesc(String searchKeyword, Pageable pageable); // 수정된 부분
 
 }

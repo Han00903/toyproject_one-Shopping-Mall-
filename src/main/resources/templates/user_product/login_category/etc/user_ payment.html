@@ -1,69 +1,93 @@
 <!DOCTYPE html>
-<html lang=" utf-8"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/product_write.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>구매 페이지</title>
 </head>
 <body>
-<header  th:insert="~{user_login_index :: user_login_menu}"></header>
-<br><br><br>
+<h2>선택된 상품 목록</h2>
 
-<div style="text-align: center; ">
-    <table class="table table-striped"
-           style="width: 80%; margin: auto; border: 1px solid #dddddd; border-collapse: collapse;">
-        <thead>
-        <tr>
-            <th style="font-family: Helvetica; text-align: center; border: 1px solid #dddddd; padding: 10px; color: gray; width: 8%;">
-                No.
-            </th>
-            <th style="font-family: Helvetica; text-align: center; border: 1px solid #dddddd; padding: 10px; color: gray;">
-                이미지
-            </th>
-            <th style="font-family: Helvetica; text-align: center; border: 1px solid #dddddd; padding: 10px; color: gray; width: 40%;">
-                상품명
-            </th>
-            <th style="font-family: Helvetica; text-align: center; border: 1px solid #dddddd; padding: 10px; color: gray; width: 10%;">
-                판매금액
-            </th>
-            <th style="font-family: Helvetica; text-align: center; border: 1px solid #dddddd; padding: 10px; color: gray;">
-                수량
-            </th>
-            <th style="font-family: Helvetica; text-align: center; border: 1px solid #dddddd; padding: 10px; color: gray;">
-                주문금액
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="cart, rowStat : ${cartList}" style="font-family: Helvetica;">
-            <th:block th:if="${cart.userID == session.userID}">
-                <td style="border: 1px solid #dddddd; padding: 10px; text-align: center; font-size: 13px;">
-                    <input type="checkbox" value="itemIndex" onchange="updateSelectedItems(this)" data-user-id="userID">
-                </td>
-                <td style="border: 1px solid #dddddd; padding: 10px; font-size: 13px; ">
-                    <img th:src="${cart.itemImage}" alt="Item Image" width="90" height="90">
-                </td>
-
-                <td style="border: 1px solid #dddddd; padding: 10px; font-size: 13px; ">
-                    <a th:text="${cart.itemName}"></a>
-                </td>
-                <td style="border: 1px solid #dddddd; padding: 10px; font-size: 13px; ">
-                    <a th:text="${cart.price}"></a>
-                </td>
-                <td style="border: 1px solid #dddddd; padding: 10px; font-size: 13px;">
-                    <a th:text="${cart.Number}"></a>
-                </td>
-                <td style="border: 1px solid #dddddd; padding: 10px; font-size: 13px;">
-                    <a th:text="${cart.price * cart.Number}"></a>
-                </td>
-            </th:block>
-        </tr>
-    </table>
-    <br><br><br>
-    <br><br><br>
-    <footer class="footer" th:insert="~{footer :: footer}"></footer>
-</div>
+<ul>
+    <!-- cartDTOList의 내용을 반복하여 리스트로 추가합니다 -->
+    <li th:each="cartItem : ${cartList}">
+        <span th:text="${cartItem.cartID}"></span>
+        <span th:text="${cartItem.price}"></span>
+    </li>
+</ul>
 </body>
 </html>
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang=" utf-8"-->
+<!--      xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <link rel="stylesheet" href="/css/style.css">-->
+<!--    <link rel="stylesheet" href="/css/product_write.css">-->
+<!--    <title>구매 페이지</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<header  th:insert="~{user_login_index :: user_login_menu}"></header>-->
+<!--<br><br><br>-->
+
+<!--<div style="text-align: center; ">-->
+<!--    <table class="table table-striped"-->
+<!--           style="width: 80%; margin: auto; border: 1px solid #dddddd; border-collapse: collapse;">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th style="font-family: Helvetica; text-align: center; border: 1px solid #dddddd; padding: 10px; color: gray; width: 8%;">-->
+<!--                No.-->
+<!--            </th>-->
+<!--            <th style="font-family: Helvetica; text-align: center; border: 1px solid #dddddd; padding: 10px; color: gray;">-->
+<!--                이미지-->
+<!--            </th>-->
+<!--            <th style="font-family: Helvetica; text-align: center; border: 1px solid #dddddd; padding: 10px; color: gray; width: 40%;">-->
+<!--                상품명-->
+<!--            </th>-->
+<!--            <th style="font-family: Helvetica; text-align: center; border: 1px solid #dddddd; padding: 10px; color: gray; width: 10%;">-->
+<!--                판매금액-->
+<!--            </th>-->
+<!--            <th style="font-family: Helvetica; text-align: center; border: 1px solid #dddddd; padding: 10px; color: gray;">-->
+<!--                수량-->
+<!--            </th>-->
+<!--            <th style="font-family: Helvetica; text-align: center; border: 1px solid #dddddd; padding: 10px; color: gray;">-->
+<!--                주문금액-->
+<!--            </th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="cart, rowStat : ${cartList}" style="font-family: Helvetica;">-->
+<!--            <th:block th:if="${cart.userID == session.userID}">-->
+<!--                <td style="border: 1px solid #dddddd; padding: 10px; text-align: center; font-size: 13px;">-->
+<!--                    <input type="checkbox" value="itemIndex" onchange="updateSelectedItems(this)" data-user-id="userID">-->
+<!--                </td>-->
+<!--                <td style="border: 1px solid #dddddd; padding: 10px; font-size: 13px; ">-->
+<!--                    <img th:src="${cart.itemImage}" alt="Item Image" width="90" height="90">-->
+<!--                </td>-->
+
+<!--                <td style="border: 1px solid #dddddd; padding: 10px; font-size: 13px; ">-->
+<!--                    <a th:text="${cart.itemName}"></a>-->
+<!--                </td>-->
+<!--                <td style="border: 1px solid #dddddd; padding: 10px; font-size: 13px; ">-->
+<!--                    <a th:text="${cart.price}"></a>-->
+<!--                </td>-->
+<!--                <td style="border: 1px solid #dddddd; padding: 10px; font-size: 13px;">-->
+<!--                    <a th:text="${cart.Number}"></a>-->
+<!--                </td>-->
+<!--                <td style="border: 1px solid #dddddd; padding: 10px; font-size: 13px;">-->
+<!--                    <a th:text="${cart.price * cart.Number}"></a>-->
+<!--                </td>-->
+<!--            </th:block>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--    <br><br><br>-->
+<!--    <br><br><br>-->
+<!--    <footer class="footer" th:insert="~{footer :: footer}"></footer>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

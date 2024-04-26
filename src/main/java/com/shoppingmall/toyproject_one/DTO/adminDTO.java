@@ -1,7 +1,7 @@
 package com.shoppingmall.toyproject_one.DTO;
 
 import com.shoppingmall.toyproject_one.entity.admin;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;

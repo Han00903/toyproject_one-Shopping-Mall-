@@ -1,13 +1,16 @@
 package com.shoppingmall.toyproject_one.controller;
 
 import com.shoppingmall.toyproject_one.DTO.boardDTO;
+import com.shoppingmall.toyproject_one.DTO.commentDTO;
 import com.shoppingmall.toyproject_one.DTO.userDTO;
 import com.shoppingmall.toyproject_one.entity.board;
 import com.shoppingmall.toyproject_one.entity.user;
 import com.shoppingmall.toyproject_one.service.BoardService;
+import com.shoppingmall.toyproject_one.service.CommentService;
 import com.shoppingmall.toyproject_one.service.ItemService;
 import com.shoppingmall.toyproject_one.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,15 +36,17 @@ public class AdminBoardController {
     private UserService userService;
 
     @Autowired
+    private CommentService commentService;
+
+    @Autowired
     private ItemService itemService;
 
     @GetMapping("/toyproject_one/admin_board/review_list") // 회원가입 페이지 출력 요청
     public String reviewListForm(Model model,
-                                 @PageableDefault(page = 0, size = 9, sort = "userID", direction = Sort.Direction.DESC) Pageable pageable, /* page 번호 */
+                                 @PageableDefault(page = 0, size = 9, sort = "boardCreatedTime", direction = Sort.Direction.DESC) Pageable pageable,
                                  @ModelAttribute("searchKeyword") String searchKeyword,
                                  HttpServletRequest request,
                                  RedirectAttributes redirectAttributes) {
-
         Page<board> list;
 
         if (searchKeyword == null || searchKeyword.isEmpty()) {
@@ -67,6 +72,10 @@ public class AdminBoardController {
         List<boardDTO> boardDTOList = boardService.findAll();
         model.addAttribute("boardList", boardDTOList);
 
+        // 내림차순 저장
+        model.addAttribute("boardList", list.getContent());
+
+
         model.addAttribute("list", list);
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
@@ -76,12 +85,28 @@ public class AdminBoardController {
     }
 
     @GetMapping(value = "/toyproject_one/admin_board/{itemID}/{boardID}")
-    public String adBoardDetail (@PathVariable("boardID") String boardID,@PathVariable("itemID") String itemID, Model model) {
+    public String adBoardDetail (@PathVariable("boardID") String boardID,
+                                 @PathVariable("itemID") String itemID, Model model,
+                                 HttpSession session) {
         /*
          * 해당 게시글의 조회수를 하나 올리고
          * 게시글 데이터를 가져와서 user_list.html에 출력
          */
         boardDTO boardDTO = boardService.findByID(boardID);
+
+        /*댓글 목록 가져오기*/
+        List<commentDTO> commentDTOList = commentService.findAllByBoard(boardID);
+        model.addAttribute("commentList", commentDTOList);
+
+        System.out.println("댓글 목록을 가져와보자" + commentDTOList);
+
+        /*세션 로그인 정보 가져오기*/
+        String userID = (String) session.getAttribute("adminID");
+        System.out.println("세션에 저장된 adminID: " + userID);
+        model.addAttribute("adminID", userID);
+        System.out.println("로그인된 아이디는 : " + userID);
+
+
         model.addAttribute("board", boardDTO);
         model.addAttribute("item", itemService.itemView(itemID));
 

@@ -84,42 +84,42 @@
                                            th:max="${item.stock_number}" oninput="checkValidity(this)" requiredn>
                                     <button type="submit"> ADD CART</button>
                                 </form>
-                                <form id="payment"
-                                      th:action="@{/toyproject_one/user_item/user_payment/{userID}(userID=${userID})}"
-                                      method="post" modelAttribute="paymentDTO" style="display: inline-block;">
-                                    <input class="font" type="hidden" id="paymentID" name="paymentID"
-                                           style="display: block; width: 350px; margin: 0 auto;" readonly>
-                                    <script>
-                                        // 현재 시간을 가져오는 함수
-                                        function getCurrentDateTime() {
-                                            var now = new Date();
-                                            var month = now.getMonth() + 1;
-                                            var day = now.getDate();
-                                            var hour = now.getHours();
-                                            var minute = now.getMinutes();
-                                            var second = now.getSeconds(); // 초
+<!--                                <form id="payment"-->
+<!--                                      th:action="@{/toyproject_one/user_item/user_payment/{userID}(userID=${userID})}"-->
+<!--                                      method="post" modelAttribute="paymentDTO" style="display: inline-block;">-->
+<!--                                    <input class="font" type="hidden" id="paymentID" name="paymentID"-->
+<!--                                           style="display: block; width: 350px; margin: 0 auto;" readonly>-->
+<!--                                    <script>-->
+<!--                                        // 현재 시간을 가져오는 함수-->
+<!--                                        function getCurrentDateTime() {-->
+<!--                                            var now = new Date();-->
+<!--                                            var month = now.getMonth() + 1;-->
+<!--                                            var day = now.getDate();-->
+<!--                                            var hour = now.getHours();-->
+<!--                                            var minute = now.getMinutes();-->
+<!--                                            var second = now.getSeconds(); // 초-->
 
-                                            // 한 자리 숫자인 경우 앞에 0을 추가
-                                            if (month < 10) month = '0' + month;
-                                            if (day < 10) day = '0' + day;
-                                            if (hour < 10) hour = '0' + hour;
-                                            if (minute < 10) minute = '0' + minute;
-                                            if (second < 10) second = '0' + second;
+<!--                                            // 한 자리 숫자인 경우 앞에 0을 추가-->
+<!--                                            if (month < 10) month = '0' + month;-->
+<!--                                            if (day < 10) day = '0' + day;-->
+<!--                                            if (hour < 10) hour = '0' + hour;-->
+<!--                                            if (minute < 10) minute = '0' + minute;-->
+<!--                                            if (second < 10) second = '0' + second;-->
 
-                                            return 'pay' + month + day + hour + minute + second;
-                                        }
+<!--                                            return 'pay' + month + day + hour + minute + second;-->
+<!--                                        }-->
 
-                                        // 현재 시간을 가져와서 상품 코드에 설정
-                                        document.getElementById('paymentID').value = getCurrentDateTime();
-                                    </script>
-                                    <input type="hidden" name="userID" th:value="${session.userID}" />
-                                    <input type="hidden" name="itemImage" th:value="${item.item_img_filepath}"/>
-                                    <input type="hidden" name="itemID" th:value="${item.itemID}"/>
-                                    <input type="hidden" name="itemName" th:value="${item.itemNM}"/>
-                                    <input type="hidden" name="price" th:value="${item.price}"/>
-                                    <input type="hidden" id="pay_Number" name="pay_Number" value="1" min="1" required>
-                                    <button type="submit"> BUY NOW</button>
-                                </form>
+<!--                                        // 현재 시간을 가져와서 상품 코드에 설정-->
+<!--                                        document.getElementById('paymentID').value = getCurrentDateTime();-->
+<!--                                    </script>-->
+<!--                                    <input type="hidden" name="userID" th:value="${session.userID}" />-->
+<!--                                    <input type="hidden" name="itemImage" th:value="${item.item_img_filepath}"/>-->
+<!--                                    <input type="hidden" name="itemID" th:value="${item.itemID}"/>-->
+<!--                                    <input type="hidden" name="itemName" th:value="${item.itemNM}"/>-->
+<!--                                    <input type="hidden" name="price" th:value="${item.price}"/>-->
+<!--                                    <input type="hidden" id="pay_Number" name="pay_Number" value="1" min="1" required>-->
+<!--                                    <button type="submit"> BUY NOW</button>-->
+<!--                                </form>-->
                                 <script>
                                     function updatePaymentNumber(element) {
                                         document.getElementById("pay_Number").value = element.value;

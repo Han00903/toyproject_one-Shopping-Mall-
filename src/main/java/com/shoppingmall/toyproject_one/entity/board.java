@@ -1,11 +1,11 @@
 package com.shoppingmall.toyproject_one.entity;
 
 import com.shoppingmall.toyproject_one.DTO.boardDTO;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -36,6 +36,9 @@ public class board extends boardBase{
 
     @Column(name = "board_hits")
     private int boardHits;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<comment> commentList = new ArrayList<>();
 
     public static board board(boardDTO boardDTO) {
         board board = new board();

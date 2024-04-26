@@ -78,6 +78,6 @@ public class BoardService {
     }
 
     public Page<board> boardSearchList(String searchKeyword, Pageable pageable){
-        return boardRepository.findByboardIDContaining(searchKeyword, pageable);
+        return boardRepository.findAllByOrderByBoardCreatedTimeDesc(searchKeyword, pageable);
     }
 }

@@ -1,7 +1,9 @@
 package com.shoppingmall.toyproject_one.controller;
 
 import com.shoppingmall.toyproject_one.DTO.boardDTO;
+import com.shoppingmall.toyproject_one.DTO.commentDTO;
 import com.shoppingmall.toyproject_one.service.BoardService;
+import com.shoppingmall.toyproject_one.service.CommentService;
 import com.shoppingmall.toyproject_one.service.ItemService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +27,9 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+
+    @Autowired
+    private CommentService commentService;
 
     // 게시판 글쓰기 Form
     @GetMapping(value = "/toyproject_one/user_board/write/{itemID}")
@@ -68,6 +73,14 @@ public class BoardController {
         */
         boardService.updateHits(boardID);
         boardDTO boardDTO = boardService.findByID(boardID);
+
+        /*댓글 목록 가져오기*/
+        List<commentDTO> commentDTOList = commentService.findAllByBoard(boardID);
+        model.addAttribute("commentList", commentDTOList);
+
+        System.out.println("댓글 목록을 가져와보자" + commentDTOList);
+
+
         model.addAttribute("board", boardDTO);
         model.addAttribute("item", itemService.itemView(itemID));
 
@@ -82,6 +95,14 @@ public class BoardController {
          */
         boardService.updateHits(boardID);
         boardDTO boardDTO = boardService.findByID(boardID);
+        /*댓글 목록 가져오기*/
+        List<commentDTO> commentDTOList = commentService.findAllByBoard(boardID);
+        model.addAttribute("commentList", commentDTOList);
+
+        System.out.println("댓글 목록을 가져와보자" + commentDTOList);
+
+
+
         model.addAttribute("board", boardDTO);
         model.addAttribute("item", itemService.itemView(itemID));
 
@@ -121,24 +142,4 @@ public class BoardController {
         return "message";
     }
 
-//    //페이징 처리 (/toyproject_one/user_board/paging?page=1)
-//    @GetMapping(value = "/toyproject_one/user_board/paging")
-//    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) {
-//        pageable.getPageNumber();
-//        Page<boardDTO> list = boardService.paging(pageable);
-////        int blockLimit = 5;
-////        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber()/blockLimit))) - 1) * blockLimit + 1 ;
-////        int endPage = ((startPage + blockLimit -1) < list.getTotalPages()) ? startPage + blockLimit -1 : list.getTotalPages();
-//
-//        int nowPage = list.getPageable().getPageNumber() + 1;
-//        int startPage = Math.max(nowPage - 4, 1);
-//        int endPage = Math.min(nowPage + 5, list.getTotalPages());
-//
-//        model.addAttribute("list", list);
-//        model.addAttribute("nowPage", nowPage);
-//        model.addAttribute("startPage", startPage);
-//        model.addAttribute("endPage", endPage);
-//
-//        return "/user_board/user_list";
-//    }
 }

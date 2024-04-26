@@ -36,6 +36,23 @@
         </tbody>
     </table>
     <br><br>
+    <table style="margin: 0 auto; border: 1px solid #dddddd; border-collapse: collapse; width: 800px;">
+        <tr>
+            <th class="navbar" colspan="2" style="text-align: center;">
+                <h3 style="margin: 0;">답변 내용</h3>
+            </th>
+        </tr>
+        <tr>
+            <th class="navbar" style="text-align: left; width: 10%;">답변 번호</th>
+            <th class="navbar" style="text-align: left; width: 90%;">답변 내용</th>
+        </tr>
+        <tr th:each="comment: ${commentList}">
+            <td style="text-align: left; width: 10%;" th:text="${comment.commentID}"></td>
+            <td style="text-align: left; width: 90%;" th:text="${comment.commentContents}"></td>
+        </tr>
+    </table>
+    <br><br>
+    <br><br>
     <button onclick="listReq()">목록</button>
     <script th:inline="javascript">
         const listReq = () => {

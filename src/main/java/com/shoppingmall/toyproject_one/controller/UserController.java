@@ -1,7 +1,6 @@
 package com.shoppingmall.toyproject_one.controller;
 
 import com.shoppingmall.toyproject_one.DTO.userDTO;
-import com.shoppingmall.toyproject_one.repository.UserRepository;
 import com.shoppingmall.toyproject_one.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;

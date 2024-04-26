@@ -1,26 +1,35 @@
 <!DOCTYPE html>
-<html lang=" utf-8"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang=" utf-8" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/aside_nav.css">
     <link rel="stylesheet" href="/css/product_write.css">
     <title>리뷰 상세 페이지</title>
+    <!-- Jquery CDN-->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <header th:insert="~{admin_login_index :: login_menu}">
 </header>
 <br><br><br>
-
 <div style="text-align: center;">
-    <table style="margin: 0 auto; border: 1px solid #dddddd; border-collapse: collapse;">
+    <table style="margin: 0 auto; border: 1px solid #dddddd; border-collapse: collapse; width: 800px;">
         <p class="tip"></p>
+        <thead>
+        <tr>
+            <th class="navbar" colspan="2" style="text-align: center;">
+                <h3 style="margin: 0;">문의 내용</h3>
+            </th>
+        </tr>
+        </thead>
         <tbody>
         <tr>
-            <td style="text-align: left;">
+            <td style="text-align: left;"> 상품</td>
+            <td>
                 <img th:src="@{${item.item_img_filepath}}" style="width: 200px; height: 200px;"/>
             </td>
-            <td ></td>
+            <td></td>
         </tr>
         <tr>
             <td style="text-align: left;"> 상품명</td>
@@ -38,17 +47,124 @@
             <td style="text-align: left;"> 내용</td>
             <td th:text="${board.boardContent}"></td>
         </tr>
+        <div id="comment-write">
+            <tr>
+            </tr>
+            <tr>
+                <th class="navbar" colspan="2" style="text-align: center;">
+                    <h3 style="margin: 0;">답변 작성</h3>
+                </th>
+                <td>
+                    <input style="width: 600px;" type="hidden" id="commentID" name="commentID"><br>
+                    <script>
+                        // 현재 시간을 가져오는 함수
+                        function getCurrentDateTime() {
+                            var now = new Date();
+                            var month = now.getMonth() + 1;
+                            var day = now.getDate();
+                            var hour = now.getHours();
+                            var minute = now.getMinutes();
+                            var second = now.getSeconds(); // 초
+
+                            // 한 자리 숫자인 경우 앞에 0을 추가
+                            if (month < 10) month = '0' + month;
+                            if (day < 10) day = '0' + day;
+                            if (hour < 10) hour = '0' + hour;
+                            if (minute < 10) minute = '0' + minute;
+                            if (second < 10) second = '0' + second;
+
+                            return 'Com' + month + day + hour + minute + second;
+                        }
+
+                        // 현재 시간을 가져와서 상품 코드에 설정
+                        var commentID = getCurrentDateTime(); // commentID 값을 전역 변수로 설정
+                        document.getElementById('commentID').value = commentID;
+                    </script>
+                    <input style="width: 600px;" type="hidden" id="commentWriter" th:value="${session.userID}"><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input style="width: 400px;" type="text" id="commentContents" placeholder=" 답변 내용"><br>
+                    <input style="width: 400px;" type="hidden" id="boardID" th:value="${board.boardID}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <button id="comment-wirte-btn" onclick="commentWrite()">답변 작성</button>
+                </td>
+            </tr>
+        </div>
         </tbody>
     </table>
     <br><br>
-    <button onclick="listReq()">목록</button>
-    <button onclick="confirmDelete()">삭제</button>
+    <!--댓글 출력 부분-->
+    <div id="comment-list">
+        <table>
+            <tr>
+                <th>답변 번호</th>
+                <th>답변 내용</th>
+            </tr>
+            <tr th:each="comment:${commentList}">
+                <td th:text="${comment.commentID}"></td>
+                <td th:text="${comment.commentContents}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <br><br>
     <script th:inline="javascript">
+        const itemID = /*[[${item.itemID}]]*/ null; // Thymeleaf 템플릿을 사용하여 itemID 가져오기
+        const boardID = /*[[${board.boardID}]]*/ null; // Thymeleaf 템플릿을 사용하여 boardID 가져오기
+        const commentWrite = () => {
+            const ID = document.getElementById("commentID").value;
+            const writer = document.getElementById("commentWriter").value;
+            const contents = document.getElementById("commentContents").value;
+            console.log("작성자: ", writer);
+            console.log("내용: ", contents);
+            console.log("commentID: ", ID); // commentID 값을 콘솔에 출력
+            $.ajax({
+                type: "post",
+                url: "/toyproject_one/admin_board/" + itemID + "/" + boardID + "/save",
+                data: {
+                    "commentID": ID, // commentID를 데이터로 추가
+                    "commentWriter": writer,
+                    "commentContents": contents,
+                    "boardID": boardID
+                },
+                success: function(res) {
+                    console.log("요청 성공", res);
+                    let output = "<table class='table'>";
+                    output += "<tr><th>답변 번호</th>";
+<!--                        output += "<th>작성자</th>";-->
+                    output += "<th>답변 내용</th></tr>";
+<!--                    output += "<th>작성시간</th></tr>";-->
+                    for (let i in res) {
+                        output += "<tr>";
+                        output += "<td>" + res[i].commentID + "</td>";
+<!--                            output += "<td>" + res[i].commentWriter + "</td>";-->
+                        output += "<td>" + res[i].commentContents + "</td>";
+<!--                        output += "<td>" + res[i].commentCreatedTime + "</td>";-->
+                        output += "</tr>";
+                    }
+                    output += "</table>";
+                    document.getElementById('comment-list').innerHTML = output;
+                    document.getElementById('commentWriter').value = '';
+                    document.getElementById('commentContents').value = '';
+                },
+                error: function(err) {
+                    console.log("요청 실패", err);
+                }
+            });
+        }
         const listReq = () => {
             console.log("목록 요청");
             history.back(); // 이전 페이지로 이동
         }
-
         const confirmDelete = () => {
             console.log("삭제 요청 확인");
             if (confirm("정말로 삭제하시겠습니까?")) {
@@ -59,6 +175,8 @@
             }
         }
     </script>
+    <button onclick="listReq()">목록</button>
+    <button onclick="confirmDelete()">삭제</button>
     <br><br><br><br><br><br><br>
     <footer class="footer" th:insert="~{footer :: footer}"></footer>
 </div>
